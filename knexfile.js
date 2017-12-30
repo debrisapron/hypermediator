@@ -1,9 +1,11 @@
 module.exports = {
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './dev.sqlite3'
-    },
-    useNullAsDefault: true
+    client: 'pg',
+    connection: 'postgres://ubuntu:ubuntu@localhost/hm_dev'
+  },
+
+  test: {
+    client: 'pg',
+    connection: 'postgres://ubuntu:ubuntu@localhost/hm_dev'
   }
 }

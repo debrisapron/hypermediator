@@ -1,15 +1,19 @@
 let React = require('react')
 
 let STYLES = `
-textarea.hm-st-txt {
+.hm-hot-dialogue-list, .hm-statement-list {
+  list-style-type: none;
+  padding: 0;
+}
+.hm-hot-dialogue-list li {
+  padding-top: 5px;
+}
+textarea.hm-statement-input {
   width: 100%;
   height: 10em;
 }
 .header .pure-menu-list {
   float: right;
-}
-.hm-st {
-  border-top: solid 1px black;
 }`
 
 let LIVERELOAD_SCRIPT = `

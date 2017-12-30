@@ -11,7 +11,7 @@ let StartDialogue = ({ context }) => {
         Invite:<br />
         <input name="invitedUsername" type="text" /><br />
         Opening Statement:<br />
-        <textarea name="openingStatementText" className="hm-st-txt" /><br />
+        <textarea name="openingStatementText" className="hm-statement-input" /><br />
         <input type="submit" value="Start Dialogue" />
       </form>
     </DefaultLayout>

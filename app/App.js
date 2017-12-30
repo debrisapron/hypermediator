@@ -6,22 +6,23 @@ let expressReactViews = require('express-react-views')
 let expressSession = require('express-session')
 let passwordless = require('passwordless')
 let PasswordlessMemoryStore = require('passwordless-memorystore')
-let Db = require('./data/Db')
 let users = require('./data/users')
 let dialogues = require('./data/dialogues')
 
-let App = (opts, cb) => {
+// Global config
+require('showdown').setFlavor('github')
+
+let App = ({ db, port, secret }, cb) => {
   let app = express()
-  let db = Db(opts.db)
 
   //// Renderer setup ////
-  
+
   app.set('views', __dirname + '/views')
   app.set('view engine', 'jsx')
   app.engine('jsx', expressReactViews.createEngine())
-  
+
   //// Passwordless setup ////
-  
+
   // TODO DELETE
   let tokenUrl
   passwordless.init(new PasswordlessMemoryStore(), {
@@ -35,14 +36,19 @@ let App = (opts, cb) => {
     tokenUrl = url
     cb()
   })
-  
+
   //// Middlewares ////
-  
+
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
-  app.use(expressSession({ secret: opts.secret, saveUninitialized: false, resave: false }))
+  app.use(expressSession({ secret: secret, saveUninitialized: false, resave: false }))
   app.use(passwordless.sessionSupport())
-  
+
+  app.use((req, res, next) => {
+    req.currentUserId = 'user1'
+    next()
+  })
+
   let requestToken = passwordless.requestToken(
     (email, delivery, cb) => {
       users.findByEmail(db, email).then((user) => {
@@ -51,7 +57,7 @@ let App = (opts, cb) => {
     },
     { userField: 'email' }
   )
-  
+
   let getContext = (req, res, next) => {
     users.find(db, req.currentUserId).then((user) => {
       req.context = { user, url: req.url }
@@ -60,7 +66,7 @@ let App = (opts, cb) => {
   }
 
   //// Routes ////
-  
+
   // Auth routes
   app.get('/register',
     (req, res) => res.render('Register')
@@ -97,7 +103,7 @@ let App = (opts, cb) => {
   //   }),
   //   (req, res) => res.send(`<p>You are ${ req.user }</p>`)
   // )
-  
+
   // Dialogue routes
   app.get('/dialogues/new',
     getContext,
@@ -106,9 +112,9 @@ let App = (opts, cb) => {
   app.post('/dialogues/new',
     (req, res) => {
       let attrs = _.cloneDeep(req.body)
-      attrs.creatorId = req.currentUserId
+      attrs.userId = req.currentUserId
       dialogues.create(db, attrs)
-        .then((dialogue) => res.redirect(`/dialogues/${ dialogue.id }`))
+        .then((dialogueId) => res.redirect(`/dialogues/${ dialogueId }`))
     }
   )
   app.get('/dialogues/:id',
@@ -119,56 +125,35 @@ let App = (opts, cb) => {
       })
     }
   )
-  
+  app.post('/dialogues/:id',
+    (req, res) => {
+      let attrs = _.cloneDeep(req.body)
+      attrs.userId = req.currentUserId
+      attrs.dialogueId = req.params.id
+      dialogues.addStatement(db, attrs)
+        .then(() => res.redirect(`/dialogues/${ req.params.id }`))
+    }
+  )
+
   // Home
   app.get('/',
     getContext,
-    (req, res) => res.render('Index', { context: req.context })
+    (req, res) => {
+      dialogues.hot(db).then((hotDialogues) => {
+        res.render('Index', { hotDialogues, context: req.context })
+      })
+    }
   )
 
   // Server
-  let server = app.listen(opts.port, (err) => {
+  let server = app.listen(port, (err) => {
     if (err) throw err
     const host = server.address().address
-    console.log(`Speakual server listening at http://${host}:${opts.port}`)
+    console.log(`Speakual server listening at http://${ host }:${ port }`)
     if (cb) cb(null, server)
   })
-  
+
   return app
 }
 
 module.exports = App
-
-////////////////////////////////////////////////////////////////////////////////
-
-if (!process.env.TEST) return
-
-let test = require('tape')
-let jsdom = require('jsdom')
-
-let PORT = 8881
-let ROOT = `http://localhost:${ PORT }/`
-
-let routeTest = (url, cb) => {
-  test(`can route ${ url }`, (assert) => {
-    App({ port: PORT, data: { db: 'test' } }, (__, server) => {
-      jsdom.env({
-        url,
-        agentOptions: { keepAlive: false },
-        
-        done: (err, win) => {
-          if (err) throw err
-          cb(win, assert)
-          win.close()
-          server.close()
-          assert.end()
-        }
-      })
-    })
-  })
-}
-
-routeTest(ROOT, (win, assert) => {
-  let h1 = win.document.querySelector('h1')
-  assert.equal(h1.textContent, 'HYPERMEDIATOR')
-})
