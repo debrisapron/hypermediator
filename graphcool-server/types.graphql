@@ -1,0 +1,27 @@
+type User @model {
+  id: ID! @isUnique
+  email: String
+  auth0UserId: String @isUnique
+  name: String! @isUnique
+  participations: [Participant!]! @relation(name: "UserParticipations")
+}
+
+type Dialogue @model {
+  id: ID! @isUnique
+  title: String!
+  participants: [Participant!]! @relation(name: "DialogueParticipants")
+}
+
+type Participant @model {
+  id: ID! @isUnique
+  user: User! @relation(name: "UserParticipations")
+  dialogue: Dialogue! @relation(name: "DialogueParticipants")
+  statements: [Statement!]! @relation(name: "ParticipantStatements")
+}
+
+type Statement @model {
+  id: ID! @isUnique
+  text: String!
+  participant: Participant @relation(name: "ParticipantStatements")
+  createdAt: DateTime!
+}
