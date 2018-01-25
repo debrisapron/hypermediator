@@ -1,6 +1,5 @@
-import { connect } from 'react-redux'
-import * as t from '../types'
-import * as actions from '../store/actions'
+import * as reactRedux from 'react-redux'
+import actions from '../store/actions'
 import Home from '../components/Home'
 
 let mapDispatchToProps = {
@@ -8,12 +7,12 @@ let mapDispatchToProps = {
   onClickUserDropdown: actions.showLoginModal
 }
 
-function mapStateToProps(state: t.State) {
+function mapStateToProps(state) {
   return {
     dialogueSummaries: state.dialogueSummaries
   }
 }
 
-let HomeContainer = connect<{}, {}, t.State>(mapStateToProps, mapDispatchToProps)(Home)
+let HomeContainer = reactRedux.connect(mapStateToProps, mapDispatchToProps)(Home)
 
 export default HomeContainer

@@ -1,24 +1,23 @@
 import _ from 'lodash/fp'
 import { GraphQLClient } from 'graphql-request'
-import * as t from '../types'
 
 let gql = new GraphQLClient(
   'https://api.graph.cool/simple/v1/cjc0y4mb312yk0165wher7c6w',
   { headers: {} }
 )
 
-export async function fetchDialogueSummaries(): Promise<t.DialogueSummaries> {
+export async function fetchDialogueSummaries() {
   let query = `{
     allDialogues {
       id
       title
     }
   }`
-  let data = await gql.request(query) as { allDialogues: t.DialogueSummaries }
+  let data = await gql.request(query)
   return data.allDialogues
 }
 
-export async function fetchDialogue(id: string): Promise<t.Dialogue> {
+export async function fetchDialogue(id) {
   let query = `{
     Dialogue(id: "${id}") {
       id
@@ -29,10 +28,10 @@ export async function fetchDialogue(id: string): Promise<t.Dialogue> {
       }
     }
   }`
-  let data: any = await gql.request(query)
+  let data = await gql.request(query)
   let dialogue = data.Dialogue
-  let statements = dialogue.participants.map((p: any) => {
-    return p.statements.map((s: any) => _.set('user', p.user, s))
+  let statements = dialogue.participants.map((p) => {
+    return p.statements.map((s) => _.set('user', p.user, s))
   })
   statements = _.orderBy('createdAt', 'asc', _.flatten(statements))
   dialogue.statements = statements
@@ -40,7 +39,7 @@ export async function fetchDialogue(id: string): Promise<t.Dialogue> {
   return dialogue
 }
 
-export async function addStatement(dialogueId: string, text: string): Promise<string> {
+export async function addStatement(dialogueId, text) {
   let mutation = `mutation {
     createStatement(
       text: "${text}"
@@ -49,6 +48,6 @@ export async function addStatement(dialogueId: string, text: string): Promise<st
       id
     }
   }`
-  let data = await gql.request(mutation) as { id: string }
+  let data = await gql.request(mutation)
   return data.id
 }

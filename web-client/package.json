@@ -13,24 +13,13 @@
     "react-hyperscript": "^3.0.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
-    "react-scripts-ts": "2.8.0",
+    "react-scripts": "^1.1.0",
     "redux": "^3.7.2"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
-  },
-  "devDependencies": {
-    "@types/auth0-lock": "^10.16.2",
-    "@types/jest": "^21.1.9",
-    "@types/node": "^8.5.2",
-    "@types/react": "^16.0.31",
-    "@types/react-bootstrap": "^0.31.9",
-    "@types/react-dom": "^16.0.3",
-    "@types/react-hyperscript": "^3.0.1",
-    "@types/react-redux": "^5.0.14",
-    "@types/react-router-dom": "^4.2.3"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }

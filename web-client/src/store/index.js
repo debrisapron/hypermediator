@@ -1,10 +1,9 @@
 import * as redux from 'redux'
-import * as t from '../types'
 // import authMiddleware from './middlewares/auth'
 import ApiMiddleware from './middlewares/ApiMiddleware'
 import rootReducer from './reducers'
 
-let preloadedState: t.State = {
+let preloadedState = {
   activeModal: undefined,
   dialogue: undefined,
   dialogueLoading: false,
@@ -12,7 +11,7 @@ let preloadedState: t.State = {
   draftStatement: ''
 }
 
-let store: t.Store = redux.createStore(
+let store = redux.createStore(
   rootReducer,
   preloadedState,
   redux.applyMiddleware(ApiMiddleware)

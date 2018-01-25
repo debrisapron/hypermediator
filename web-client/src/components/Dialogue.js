@@ -1,18 +1,15 @@
-import * as t from '../types'
 import h from 'react-hyperscript'
 import Page from './Page'
 import StatementList from './StatementList'
 import StatementCreator from './StatementCreator'
 
-function Dialogue(props: t.DialogueProps) {
-  if (!props.dialogue) {
+function Dialogue(
+  { dialogue, onClickUserDropdown, draftStatement, onChangeDraftStatement, onSubmitStatement }
+) {
+  if (!dialogue) {
     return h('p', 'Loading dialogue...')
   }
-
-  let {
-    dialogue: { title, statements },
-    onClickUserDropdown, draftStatement, onChangeDraftStatement, onSubmitStatement
-  } = props
+  let { title, statements } = dialogue
   return (
     h(Page, { title, onClickUserDropdown }, [
       h(StatementList, { statements }),
