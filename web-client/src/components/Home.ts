@@ -5,14 +5,14 @@ import DialogueSummaryList from './DialogueSummaryList'
 
 function Home(props: {
   dialogueSummaries: t.DialogueSummaries,
-  fetchDialogueSummaries: () => void,
-  showLoginModal: () => void
+  onRender: () => void,
+  onClickUserDropdown: () => void
 }) {
-  if (!props.dialogueSummaries) { props.fetchDialogueSummaries() }
+  if (!props.dialogueSummaries) { props.onRender() }
   let content = props.dialogueSummaries
     ? h(DialogueSummaryList, { dialogueSummaries: props.dialogueSummaries })
     : h('p', 'Loading...')
-  return h(Page, { title: 'Hot Dialogues', showLoginModal: props.showLoginModal }, content)
+  return h(Page, { title: 'Hot Dialogues', onClickUserDropdown: props.onClickUserDropdown }, content)
 }
 
 export default Home

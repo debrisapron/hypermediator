@@ -5,14 +5,14 @@ import h from 'react-hyperscript'
 function Page(props: {
   children: any[],
   title: string,
-  showLoginModal: () => void
+  onClickUserDropdown: () => void
 }) {
   return h('span', [PageNav(), PageContent()])
 
   function UserDropdown() {
     return (
       h(NavDropdown, { title: 'Not logged in', id: 'hm-user-dropdown' },
-        h(NavItem, { onClick: props.showLoginModal }, 'Login/Register')
+        h(NavItem, { onClick: props.onClickUserDropdown }, 'Login/Register')
       )
     )
   }

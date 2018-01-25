@@ -4,7 +4,7 @@ import * as actions from '../store/actions'
 import ModalSwitcher from '../components/ModalSwitcher'
 
 let mapDispatchToProps = {
-  hideModal: actions.hideModal
+  onDismissModal: actions.hideModal
 }
 
 function mapStateToProps(state: t.State) {

@@ -4,10 +4,10 @@ import LoginModal from './LoginModal'
 
 function Modal(props: {
   activeModal: t.ModalType,
-  hideModal: () => void
+  onDismissModal: () => void
 }) {
   switch (props.activeModal) {
-    case t.ModalType.LOGIN: return h(LoginModal, { hideModal: props.hideModal })
+    case t.ModalType.LOGIN: return h(LoginModal, { onDismissModal: props.onDismissModal })
     case undefined: return h('span')
   }
 }

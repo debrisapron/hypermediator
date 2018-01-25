@@ -21,6 +21,7 @@ export async function fetchDialogueSummaries(): Promise<t.DialogueSummaries> {
 export async function fetchDialogue(id: string): Promise<t.Dialogue> {
   let query = `{
     Dialogue(id: "${id}") {
+      id
       title
   		participants {
         user { name id }

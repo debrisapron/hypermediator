@@ -1,14 +1,19 @@
 import h from 'react-hyperscript'
+import * as b from 'react-bootstrap'
 import Modal from './Modal'
 
 function LoginModal(props: {
-  hideModal: () => void
+  onDismissModal: () => void
 }) {
-  return h(
-    Modal,
-    { hideModal: props.hideModal, title: 'Login' },
-    `Elit est explicabo ipsum eaque dolorem blanditiis doloribus sed id ipsam, beatae, rem fuga id
-     earum? Inventore et facilis obcaecati.`
+  return (
+    h(Modal, { onDismissModal: props.onDismissModal, title: 'Login' }, [
+      h('form', [
+        h(b.FormGroup, [
+          h(b.ControlLabel, 'Please enter your email'),
+          h(b.FormControl, { type: 'text', placeholder: 'you@example.com' })
+        ])
+      ])
+    ])
   )
 }
 

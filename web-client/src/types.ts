@@ -33,11 +33,23 @@ export enum ModalType {
 export interface State {
   readonly activeModal?: ModalType
   readonly dialogue?: Dialogue
+  readonly dialogueLoading: boolean
   readonly dialogueSummaries?: DialogueSummaries
   readonly draftStatement: string
 }
 
 export type Store = redux.Store<State>
+
+export interface DialogueProps {
+  dialogue?: Dialogue
+  dialogueLoading: boolean
+  draftStatement: string
+  requestedDialogueId: string
+  onRenderDialogue: (id: string) => void
+  onChangeDraftStatement: (text: string) => void
+  onClickUserDropdown: () => void
+  onSubmitStatement: () => void
+}
 
 export type HtmlElementEvent<T extends HTMLElement> = Event & {
   target: T
@@ -57,48 +69,51 @@ export enum ActionType {
   REDUX_INIT = '@@redux/INIT'
 }
 
-export interface DialogueFetchAction {
+export interface DialogueFetchAction extends redux.Action {
   readonly type: ActionType.DIALOGUE_FETCH
+  readonly payload: {
+    readonly id: string
+  }
 }
 
-export interface DialogueFetchSuccessAction {
+export interface DialogueFetchSuccessAction extends redux.Action {
   readonly type: ActionType.DIALOGUE_FETCH_SUCCESS
   readonly payload: {
     readonly dialogue: Dialogue
   }
 }
 
-export interface DialogueSummariesFetchAction {
+export interface DialogueSummariesFetchAction extends redux.Action {
   readonly type: ActionType.DIALOGUE_SUMMARIES_FETCH
 }
 
-export interface DialogueSummariesFetchSuccessAction {
+export interface DialogueSummariesFetchSuccessAction extends redux.Action {
   readonly type: ActionType.DIALOGUE_SUMMARIES_FETCH_SUCCESS
   readonly payload: {
     readonly dialogueSummaries: DialogueSummaries
   }
 }
 
-export interface LoginModalShowAction {
+export interface LoginModalShowAction extends redux.Action {
   readonly type: ActionType.LOGIN_MODAL_SHOW
 }
 
-export interface ModalHideAction {
+export interface ModalHideAction extends redux.Action {
   readonly type: ActionType.MODAL_HIDE
 }
 
-export interface StatementAddAction {
+export interface StatementAddAction extends redux.Action {
   readonly type: ActionType.STATEMENT_ADD
 }
 
-export interface StatementUpdateDraftAction {
+export interface StatementUpdateDraftAction extends redux.Action {
   readonly type: ActionType.STATEMENT_UPDATE_DRAFT
   readonly payload: {
     readonly text: string
   }
 }
 
-export interface ReduxInitAction {
+export interface ReduxInitAction extends redux.Action {
   readonly type: ActionType.REDUX_INIT
 }
 

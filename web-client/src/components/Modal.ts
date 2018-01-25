@@ -4,10 +4,10 @@ import h from 'react-hyperscript'
 function Modal(props: {
   children: ReadonlyArray<any>,
   title: string,
-  hideModal: () => void
+  onDismissModal: () => void
 }) {
   return (
-    h(_Modal, { show: true, onHide: props.hideModal }, [
+    h(_Modal, { show: true, onHide: props.onDismissModal }, [
       h(_Modal.Header, { closeButton: true }, h(_Modal.Title, props.title)),
       h(_Modal.Body, {}, props.children),
       h(_Modal.Footer, {}, h(Button, 'Submit'))

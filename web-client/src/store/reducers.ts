@@ -1,19 +1,18 @@
-import _ from 'lodash/fp'
 import * as t from '../types'
 
 export default function reducer(state: t.State, action: t.Action): t.State {
   switch (action.type) {
-    case t.ActionType.DIALOGUE_FETCH_SUCCESS:
-      return _.set('dialogue', action.payload.dialogue, state) as t.State
-    case t.ActionType.DIALOGUE_SUMMARIES_FETCH_SUCCESS:
-      return _.set('dialogueSummaries', action.payload.dialogueSummaries, state) as t.State
-    case t.ActionType.STATEMENT_UPDATE_DRAFT:
-      return _.set('draftStatement', action.payload.text, state) as t.State
-    case t.ActionType.MODAL_HIDE:
-      return _.set('activeModal', undefined, state) as t.State
-    case t.ActionType.LOGIN_MODAL_SHOW:
-      return _.set('activeModal', t.ModalType.LOGIN, state) as t.State
     case t.ActionType.DIALOGUE_FETCH:
+      return { ...state, dialogue: undefined, dialogueLoading: true }
+    case t.ActionType.DIALOGUE_FETCH_SUCCESS:
+      return { ...state, dialogue: action.payload.dialogue, dialogueLoading: false }
+    case t.ActionType.DIALOGUE_SUMMARIES_FETCH_SUCCESS:
+      return { ...state, dialogueSummaries: action.payload.dialogueSummaries }
+    case t.ActionType.STATEMENT_UPDATE_DRAFT:
+      return { ...state, draftStatement: action.payload.text }
+    case t.ActionType.MODAL_HIDE:
+      return { ...state, activeModal: undefined }
+    case t.ActionType.LOGIN_MODAL_SHOW:
     case t.ActionType.DIALOGUE_SUMMARIES_FETCH:
     case t.ActionType.STATEMENT_ADD:
     case t.ActionType.REDUX_INIT:

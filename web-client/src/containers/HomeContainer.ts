@@ -4,8 +4,8 @@ import * as actions from '../store/actions'
 import Home from '../components/Home'
 
 let mapDispatchToProps = {
-  fetchDialogueSummaries: actions.fetchDialogueSummaries,
-  showLoginModal: actions.showLoginModal
+  onRender: actions.fetchDialogueSummaries,
+  onClickUserDropdown: actions.showLoginModal
 }
 
 function mapStateToProps(state: t.State) {
