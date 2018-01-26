@@ -1,5 +1,5 @@
 import * as reactRedux from 'react-redux'
-import actions from '../store/actions'
+import * as actions from '../store/actions'
 import Reactive from './Reactive'
 import Dialogue from '../components/Dialogue'
 
@@ -15,6 +15,7 @@ function mapStateToProps(state, ownProps) {
     dialogue: state.dialogue,
     dialogueLoading: state.dialogueLoading,
     draftStatement: state.draftStatement,
+    loggedInUser: state.loggedInUser,
     requestedDialogueId: ownProps.match.params.dialogueId
   }
 }

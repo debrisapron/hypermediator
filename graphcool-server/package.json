@@ -7,5 +7,8 @@
     "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^8.1.0",
     "jwks-rsa": "^1.2.1"
+  },
+  "scripts": {
+    "deploy": "AUTH0_DOMAIN=hypermediator.auth0.com AUTH0_API_IDENTIFIER=http://localhost:8080 graphcool deploy"
   }
 }

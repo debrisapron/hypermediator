@@ -6,15 +6,28 @@ let gql = new GraphQLClient(
   { headers: {} }
 )
 
-export async function fetchDialogueSummaries() {
-  let query = `{
-    allDialogues {
+export async function addStatement(dialogueId, text) {
+  let mutation = `mutation {
+    createStatement(
+      text: "${text}"
+      dialogueId: "${dialogueId}"
+    ) {
       id
-      title
     }
   }`
-  let data = await gql.request(query)
-  return data.allDialogues
+  let data = await gql.request(mutation)
+  return data.id
+}
+
+export async function authenticateUser(accessToken) {
+  let mutation = `mutation {
+    authenticateUser(accessToken: "${accessToken}") {
+      id
+      token
+    }
+  }`
+  let data = await gql.request(mutation)
+  return data.authenticateUser
 }
 
 export async function fetchDialogue(id) {
@@ -39,15 +52,24 @@ export async function fetchDialogue(id) {
   return dialogue
 }
 
-export async function addStatement(dialogueId, text) {
-  let mutation = `mutation {
-    createStatement(
-      text: "${text}"
-      dialogueId: "${dialogueId}"
-    ) {
+export async function fetchDialogueSummaries() {
+  let query = `{
+    allDialogues {
       id
+      title
     }
   }`
-  let data = await gql.request(mutation)
-  return data.id
+  let data = await gql.request(query)
+  return data.allDialogues
+}
+
+export async function fetchUser(id) {
+  let query = `{
+    User(id: "${id}") {
+      id
+      name
+    }
+  }`
+  let data = await gql.request(query)
+  return data.User
 }

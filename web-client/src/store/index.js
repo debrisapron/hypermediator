@@ -1,20 +1,22 @@
 import * as redux from 'redux'
-// import authMiddleware from './middlewares/auth'
 import ApiMiddleware from './middlewares/ApiMiddleware'
+import AuthMiddleware from './middlewares/AuthMiddleware'
 import rootReducer from './reducers'
 
 let preloadedState = {
-  activeModal: undefined,
-  dialogue: undefined,
+  activeModal: null,
+  dialogue: null,
   dialogueLoading: false,
-  dialogueSummaries: undefined,
-  draftStatement: ''
+  dialogueSummaries: null,
+  draftStatement: '',
+  loggedInUser: null,
+  userToken: null
 }
 
 let store = redux.createStore(
   rootReducer,
   preloadedState,
-  redux.applyMiddleware(ApiMiddleware)
+  redux.applyMiddleware(ApiMiddleware, AuthMiddleware)
 )
 
 export default store

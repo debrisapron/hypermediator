@@ -4,14 +4,14 @@ import StatementList from './StatementList'
 import StatementCreator from './StatementCreator'
 
 function Dialogue(
-  { dialogue, onClickUserDropdown, draftStatement, onChangeDraftStatement, onSubmitStatement }
+  { dialogue, loggedInUser, onClickUserDropdown, draftStatement, onChangeDraftStatement, onSubmitStatement }
 ) {
   if (!dialogue) {
     return h('p', 'Loading dialogue...')
   }
   let { title, statements } = dialogue
   return (
-    h(Page, { title, onClickUserDropdown }, [
+    h(Page, { loggedInUser, title, onClickUserDropdown }, [
       h(StatementList, { statements }),
       h(StatementCreator, { draftStatement, onChangeDraftStatement, onSubmitStatement })
     ])

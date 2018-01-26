@@ -1,4 +1,4 @@
-import actions from '../actions'
+import * as actions from '../actions'
 import * as actionTypes from '../actionTypes'
 import * as api from '../../services/api'
 
@@ -6,18 +6,18 @@ async function handleStatementAdd(store) {
   let { dialogue, draftStatement } = store.getState()
   if (!dialogue) { return } // TODO Error handling
   await api.addStatement(dialogue.id, draftStatement)
-  await store.dispatch(actions.fetchDialogue(dialogue.id))
-  await store.dispatch(actions.updateDraftStatement(''))
+  store.dispatch(actions.fetchDialogue(dialogue.id))
+  store.dispatch(actions.updateDraftStatement(''))
 }
 
 async function handleDialogueFetch(store, id) {
   let dialogue = await api.fetchDialogue(id)
-  await store.dispatch(actions.fetchDialogueSuccess(dialogue))
+  store.dispatch(actions.fetchDialogueSuccess(dialogue))
 }
 
 async function handleDialogueSummariesFetch(store) {
   let dialogueSummaries = await api.fetchDialogueSummaries()
-  await store.dispatch(actions.fetchDialogueSummariesSuccess(dialogueSummaries))
+  store.dispatch(actions.fetchDialogueSummariesSuccess(dialogueSummaries))
 }
 
 function ApiMiddleware(store) {
