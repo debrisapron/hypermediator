@@ -10,17 +10,17 @@ function PageContent(title, children) {
   )
 }
 
-function UserDropdown(loggedInUser, onClickUserDropdown) {
+function UserDropdown(loggedInUser, onClickLogin, onClickLogout) {
   return loggedInUser
     ? h(b.NavDropdown, { title: loggedInUser.name, id: 'hm-user-dropdown' },
-        h(b.NavItem, { onClick: onClickUserDropdown }, 'Logout')
+        h(b.NavItem, { onClick: onClickLogout }, 'Logout')
       )
     : h(b.NavDropdown, { title: 'Not logged in', id: 'hm-user-dropdown' },
-        h(b.NavItem, { onClick: onClickUserDropdown }, 'Login/Register')
+        h(b.NavItem, { onClick: onClickLogin }, 'Login/Register')
       )
 }
 
-function PageNav(loggedInUser, onClickUserDropdown) {
+function PageNav(loggedInUser, onClickLogin, onClickLogout) {
   return (
     h(b.Navbar, [
       h('div', { className: 'container' }, [
@@ -29,14 +29,19 @@ function PageNav(loggedInUser, onClickUserDropdown) {
             h(Link, { to: '/' }, 'HYPERMEDIATOR')
           ])
         ]),
-        h(b.Nav, { pullRight: true }, UserDropdown(loggedInUser, onClickUserDropdown))
+        h(b.Nav, { pullRight: true }, UserDropdown(loggedInUser, onClickLogin, onClickLogout))
       ])
     ])
   )
 }
 
-function Page({ children, loggedInUser, title, onClickUserDropdown }) {
-  return h('span', [PageNav(loggedInUser, onClickUserDropdown), PageContent(title, children)])
+function Page({ children, loggedInUser, title, onClickLogin, onClickLogout }) {
+  return (
+    h('span', [
+      PageNav(loggedInUser, onClickLogin, onClickLogout),
+      PageContent(title, children)
+    ])
+  )
 }
 
 export default Page

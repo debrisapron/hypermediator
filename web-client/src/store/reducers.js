@@ -10,10 +10,12 @@ function reducer(state, action) {
       return { ...state, dialogue: action.payload, dialogueLoading: false }
     case actionTypes.FETCH_DIALOGUE_SUMMARIES_SUCCESS:
       return { ...state, dialogueSummaries: action.payload }
-    case actionTypes.UPDATE_DRAFT_STATEMENT:
-      return { ...state, draftStatement: action.payload }
     case actionTypes.HIDE_MODAL:
       return { ...state, activeModal: null }
+    case actionTypes.LOGOUT:
+      return { ...state, loggedInUser: null }
+    case actionTypes.UPDATE_DRAFT_STATEMENT:
+      return { ...state, draftStatement: action.payload }
     case actionTypes.FETCH_DIALOGUE_SUMMARIES:
     case actionTypes.SHOW_LOGIN_MODAL:
     case '@@redux/INIT':

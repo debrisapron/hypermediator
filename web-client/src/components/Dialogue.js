@@ -1,17 +1,15 @@
 import h from 'react-hyperscript'
-import Page from './Page'
+import PageContainer from '../containers/PageContainer'
 import StatementList from './StatementList'
 import StatementCreator from './StatementCreator'
 
-function Dialogue(
-  { dialogue, loggedInUser, onClickUserDropdown, draftStatement, onChangeDraftStatement, onSubmitStatement }
-) {
+function Dialogue({ dialogue, draftStatement, onChangeDraftStatement, onSubmitStatement }) {
   if (!dialogue) {
     return h('p', 'Loading dialogue...')
   }
   let { title, statements } = dialogue
   return (
-    h(Page, { loggedInUser, title, onClickUserDropdown }, [
+    h(PageContainer, { title }, [
       h(StatementList, { statements }),
       h(StatementCreator, { draftStatement, onChangeDraftStatement, onSubmitStatement })
     ])

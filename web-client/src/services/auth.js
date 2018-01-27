@@ -13,9 +13,8 @@ let lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
   }
 })
 
-export function showAuthForm() {
-  lock.show()
-}
+export let show = lock.show.bind(lock)
+export let logout = lock.logout.bind(lock)
 
 export function onAuthenticated(callback) {
   lock.on('authenticated', callback)

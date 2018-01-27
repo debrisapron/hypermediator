@@ -17,10 +17,24 @@ async function onAuth0AuthenticateSuccess(store, accessToken) {
   getUserFromCredentials(store, token, id)
 }
 
+function onLogout() {
+  clearStoredCredentials()
+  auth.logout()
+}
+
 async function getUserFromCredentials(store, token, id) {
   let loggedInUser = await api.fetchUser(id)
+  if (!loggedInUser) {
+    clearStoredCredentials()
+    return
+  }
   loggedInUser.token = token
   store.dispatch(actions.authenticateSuccess({ loggedInUser }))
+}
+
+function clearStoredCredentials() {
+  window.localStorage.setItem('userToken', null)
+  window.localStorage.setItem('userId', null)
 }
 
 function AuthMiddleware(store) {
@@ -29,7 +43,10 @@ function AuthMiddleware(store) {
   return (next) => (action) => {
     switch (action.type) {
       case actionTypes.SHOW_LOGIN_MODAL:
-        auth.showAuthForm()
+        auth.show()
+        break
+      case actionTypes.LOGOUT:
+        onLogout()
         break
       default: // Do nothing
     }

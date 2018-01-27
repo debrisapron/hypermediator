@@ -3,14 +3,12 @@ import * as actions from '../store/actions'
 import Home from '../components/Home'
 
 let mapDispatchToProps = {
-  onRender: actions.fetchDialogueSummaries,
-  onClickUserDropdown: actions.showLoginModal
+  onRender: actions.fetchDialogueSummaries
 }
 
 function mapStateToProps(state) {
   return {
-    dialogueSummaries: state.dialogueSummaries,
-    loggedInUser: state.loggedInUser
+    dialogueSummaries: state.dialogueSummaries
   }
 }
 

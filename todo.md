@@ -1,0 +1,8 @@
+- Names
+- Create dialogue
+- Invitation
+- Turns
+- Permissions
+- Tests
+- Server rendering
+- Confirmation

@@ -6,8 +6,7 @@ import Dialogue from '../components/Dialogue'
 let mapDispatchToProps = {
   onChangeDraftStatement: actions.updateDraftStatement,
   onSubmitStatement: actions.addStatement,
-  onRenderDialogue: actions.fetchDialogue,
-  onClickUserDropdown: actions.showLoginModal
+  onRenderDialogue: actions.fetchDialogue
 }
 
 function mapStateToProps(state, ownProps) {
@@ -15,7 +14,6 @@ function mapStateToProps(state, ownProps) {
     dialogue: state.dialogue,
     dialogueLoading: state.dialogueLoading,
     draftStatement: state.draftStatement,
-    loggedInUser: state.loggedInUser,
     requestedDialogueId: ownProps.match.params.dialogueId
   }
 }
