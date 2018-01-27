@@ -26,7 +26,13 @@ function PageNav(loggedInUser, onClickLogin, onClickLogout) {
       h('div', { className: 'container' }, [
         h(b.Navbar.Header, [
           h(b.Navbar.Brand, [
-            h(Link, { to: '/' }, 'HYPERMEDIATOR')
+            // TODO CSS!
+            h(Link, { to: '/', style: { paddingTop: '12px' } }, [
+              h('div', [
+                h('img', { src: '/hm_logo.svg', height: 30 }),
+                h('span', { style: { marginLeft: '10px' } }, 'HYPERMEDIATOR')
+              ])
+            ])
           ])
         ]),
         h(b.Nav, { pullRight: true }, UserDropdown(loggedInUser, onClickLogin, onClickLogout))
