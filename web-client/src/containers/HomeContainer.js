@@ -1,17 +1,16 @@
-import * as reactRedux from 'react-redux'
 import * as actions from '../store/actions'
+import Container from './Container'
 import Home from '../components/Home'
 
-let mapDispatchToProps = {
-  onRender: actions.dialogueSummary.fetchAll
-}
-
-function mapStateToProps(state) {
-  return {
-    dialogueSummaries: state.dialogueSummaries
+let HomeContainer = Container(Home, {
+  mapDispatch: {
+    onRender: actions.dialogueSummary.fetchAll
+  },
+  mapState(state) {
+    return {
+      dialogueSummaries: state.dialogueSummaries
+    }
   }
-}
-
-let HomeContainer = reactRedux.connect(mapStateToProps, mapDispatchToProps)(Home)
+})
 
 export default HomeContainer

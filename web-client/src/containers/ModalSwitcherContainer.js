@@ -1,17 +1,16 @@
-import * as reactRedux from 'react-redux'
 import * as actions from '../store/actions'
+import Container from './Container'
 import ModalSwitcher from '../components/ModalSwitcher'
 
-let mapDispatchToProps = {
-  onDismissModal: actions.app.hideModal
-}
-
-function mapStateToProps(state) {
-  return {
-    activeModal: state.activeModal
+let ModalContainer = Container(ModalSwitcher, {
+  mapDispatch: {
+    onDismissModal: actions.app.hideModal
+  },
+  mapState(state) {
+    return {
+      activeModal: state.activeModal
+    }
   }
-}
-
-let ModalContainer = reactRedux.connect(mapStateToProps, mapDispatchToProps)(ModalSwitcher)
+})
 
 export default ModalContainer

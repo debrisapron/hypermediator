@@ -1,20 +1,19 @@
-import * as reactRedux from 'react-redux'
 import * as actions from '../store/actions'
+import Container from './Container'
 import Page from '../components/Page'
 
-let mapDispatchToProps = {
-  onClickLogin: actions.auth.showLoginModal,
-  onClickLogout: actions.auth.logout
-}
-
-function mapStateToProps(state, ownProps) {
-  return {
-    children: ownProps.children,
-    loggedInUser: state.loggedInUser,
-    title: ownProps.title
+let PageContainer = Container(Page, {
+  mapDispatch: {
+    onClickLogin: actions.auth.showLoginModal,
+    onClickLogout: actions.auth.logout
+  },
+  mapState(state, ownProps) {
+    return {
+      children: ownProps.children,
+      loggedInUser: state.loggedInUser,
+      title: ownProps.title
+    }
   }
-}
-
-let PageContainer = reactRedux.connect(mapStateToProps, mapDispatchToProps)(Page)
+})
 
 export default PageContainer

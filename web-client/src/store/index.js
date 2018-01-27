@@ -1,6 +1,5 @@
 import * as redux from 'redux'
-import ApiMiddleware from './middlewares/ApiMiddleware'
-import AuthMiddleware from './middlewares/AuthMiddleware'
+import SideEffectsMiddleware from '../side-effects'
 import rootReducer from './reducers'
 
 let preloadedState = {
@@ -16,7 +15,7 @@ let preloadedState = {
 let store = redux.createStore(
   rootReducer,
   preloadedState,
-  redux.applyMiddleware(ApiMiddleware, AuthMiddleware)
+  redux.applyMiddleware(SideEffectsMiddleware)
 )
 
 export default store
