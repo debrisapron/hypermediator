@@ -3,7 +3,7 @@ import * as actions from '../store/actions'
 import Home from '../components/Home'
 
 let mapDispatchToProps = {
-  onRender: actions.fetchDialogueSummaries
+  onRender: actions.dialogueSummary.fetchAll
 }
 
 function mapStateToProps(state) {

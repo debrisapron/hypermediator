@@ -3,7 +3,7 @@ import * as actions from '../store/actions'
 import ModalSwitcher from '../components/ModalSwitcher'
 
 let mapDispatchToProps = {
-  onDismissModal: actions.hideModal
+  onDismissModal: actions.app.hideModal
 }
 
 function mapStateToProps(state) {

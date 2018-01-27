@@ -4,13 +4,24 @@ function ActionCreator(type) {
   return (payload) => ({ type, payload })
 }
 
-export let addStatement = ActionCreator(actionTypes.ADD_STATEMENT)
-export let authenticateSuccess = ActionCreator(actionTypes.AUTHENTICATE_SUCCESS)
-export let fetchDialogue = ActionCreator(actionTypes.FETCH_DIALOGUE)
-export let fetchDialogueSuccess = ActionCreator(actionTypes.FETCH_DIALOGUE_SUCCESS)
-export let fetchDialogueSummaries = ActionCreator(actionTypes.FETCH_DIALOGUE_SUMMARIES)
-export let fetchDialogueSummariesSuccess = ActionCreator(actionTypes.FETCH_DIALOGUE_SUMMARIES_SUCCESS)
-export let hideModal = ActionCreator(actionTypes.HIDE_MODAL)
-export let logout = ActionCreator(actionTypes.LOGOUT)
-export let showLoginModal = ActionCreator(actionTypes.SHOW_LOGIN_MODAL)
-export let updateDraftStatement = ActionCreator(actionTypes.UPDATE_DRAFT_STATEMENT)
+export let app = {
+  hideModal: ActionCreator(actionTypes.APP.HIDE_MODAL)
+}
+
+export let auth = {
+  loginSuccess: ActionCreator(actionTypes.AUTH.LOGIN_SUCCESS),
+  logout: ActionCreator(actionTypes.AUTH.LOGOUT),
+  showLoginModal: ActionCreator(actionTypes.AUTH.SHOW_LOGIN_MODAL)
+}
+
+export let dialogue = {
+  fetch: ActionCreator(actionTypes.DIALOGUE.FETCH),
+  fetchSuccess: ActionCreator(actionTypes.DIALOGUE.FETCH_SUCCESS),
+  statementAdd: ActionCreator(actionTypes.DIALOGUE.STATEMENT_ADD),
+  updateDraftStatement: ActionCreator(actionTypes.DIALOGUE.UPDATE_DRAFT_STATEMENT)
+}
+
+export let dialogueSummary = {
+  fetchAll: ActionCreator(actionTypes.DIALOGUE_SUMMARY.FETCH_ALL),
+  fetchAllSuccess: ActionCreator(actionTypes.DIALOGUE_SUMMARY.FETCH_ALL_SUCCESS)
+}

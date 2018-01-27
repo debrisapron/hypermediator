@@ -4,9 +4,9 @@ import Reactive from './Reactive'
 import Dialogue from '../components/Dialogue'
 
 let mapDispatchToProps = {
-  onChangeDraftStatement: actions.updateDraftStatement,
-  onSubmitStatement: actions.addStatement,
-  onRenderDialogue: actions.fetchDialogue
+  onChangeDraftStatement: actions.dialogue.updateDraftStatement,
+  onSubmitStatement: actions.dialogue.addStatement,
+  onRenderDialogue: actions.dialogue.fetch
 }
 
 function mapStateToProps(state, ownProps) {

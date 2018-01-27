@@ -2,22 +2,26 @@ import * as actionTypes from './actionTypes'
 
 function reducer(state, action) {
   switch (action.type) {
-    case actionTypes.AUTHENTICATE_SUCCESS:
-      return { ...state, loggedInUser: action.payload.loggedInUser }
-    case actionTypes.FETCH_DIALOGUE:
-      return { ...state, dialogue: null, dialogueLoading: true }
-    case actionTypes.FETCH_DIALOGUE_SUCCESS:
-      return { ...state, dialogue: action.payload, dialogueLoading: false }
-    case actionTypes.FETCH_DIALOGUE_SUMMARIES_SUCCESS:
-      return { ...state, dialogueSummaries: action.payload }
-    case actionTypes.HIDE_MODAL:
+    case actionTypes.APP.HIDE_MODAL:
       return { ...state, activeModal: null }
-    case actionTypes.LOGOUT:
+
+    case actionTypes.AUTH.LOGIN_SUCCESS:
+      return { ...state, loggedInUser: action.payload.loggedInUser }
+    case actionTypes.AUTH.LOGOUT:
       return { ...state, loggedInUser: null }
-    case actionTypes.UPDATE_DRAFT_STATEMENT:
+
+    case actionTypes.DIALOGUE.FETCH:
+      return { ...state, dialogue: null, dialogueLoading: true }
+    case actionTypes.DIALOGUE.FETCH_SUCCESS:
+      return { ...state, dialogue: action.payload, dialogueLoading: false }
+    case actionTypes.DIALOGUE.UPDATE_DRAFT_STATEMENT:
       return { ...state, draftStatement: action.payload }
-    case actionTypes.FETCH_DIALOGUE_SUMMARIES:
-    case actionTypes.SHOW_LOGIN_MODAL:
+
+    case actionTypes.DIALOGUE_SUMMARY.FETCH_ALL_SUCCESS:
+      return { ...state, dialogueSummaries: action.payload }
+
+    case actionTypes.AUTH.SHOW_LOGIN_MODAL:
+    case actionTypes.DIALOGUE_SUMMARY.FETCH_ALL:
     case '@@redux/INIT':
       return state
     default:

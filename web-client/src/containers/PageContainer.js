@@ -3,8 +3,8 @@ import * as actions from '../store/actions'
 import Page from '../components/Page'
 
 let mapDispatchToProps = {
-  onClickLogin: actions.showLoginModal,
-  onClickLogout: actions.logout
+  onClickLogin: actions.auth.showLoginModal,
+  onClickLogout: actions.auth.logout
 }
 
 function mapStateToProps(state, ownProps) {

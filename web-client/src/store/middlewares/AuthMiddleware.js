@@ -29,7 +29,7 @@ async function getUserFromCredentials(store, token, id) {
     return
   }
   loggedInUser.token = token
-  store.dispatch(actions.authenticateSuccess({ loggedInUser }))
+  store.dispatch(actions.auth.loginSuccess({ loggedInUser }))
 }
 
 function clearStoredCredentials() {
@@ -42,10 +42,10 @@ function AuthMiddleware(store) {
   auth.onAuthenticated(({ accessToken }) => onAuth0AuthenticateSuccess(store, accessToken))
   return (next) => (action) => {
     switch (action.type) {
-      case actionTypes.SHOW_LOGIN_MODAL:
+      case actionTypes.AUTH.SHOW_LOGIN_MODAL:
         auth.show()
         break
-      case actionTypes.LOGOUT:
+      case actionTypes.AUTH.LOGOUT:
         onLogout()
         break
       default: // Do nothing
