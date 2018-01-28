@@ -1,6 +1,6 @@
-import * as actions from '../store/actions'
-import Container from './Container'
-import Page from '../components/Page'
+import * as actions from '../../store/actions'
+import Container from '../Container'
+import Page from './Page'
 
 let PageContainer = Container(Page, {
   mapDispatch: {
@@ -9,9 +9,7 @@ let PageContainer = Container(Page, {
   },
   mapState(state, ownProps) {
     return {
-      children: ownProps.children,
-      loggedInUser: state.loggedInUser,
-      title: ownProps.title
+      loggedInUser: state.loggedInUser
     }
   }
 })

@@ -1,5 +1,5 @@
 import h from 'react-hyperscript'
-import PageContainer from '../containers/PageContainer'
+import * as b from 'react-bootstrap'
 import StatementList from './StatementList'
 import StatementCreator from './StatementCreator'
 
@@ -9,7 +9,8 @@ function Dialogue({ dialogue, onChangeDraftStatement, onSubmitStatement }) {
   }
   let { draftStatement, data: { title, statements } } = dialogue
   return (
-    h(PageContainer, { title }, [
+    h('div', [
+      h(b.PageHeader, title),
       h(StatementList, { statements }),
       h(StatementCreator, { draftStatement, onChangeDraftStatement, onSubmitStatement })
     ])

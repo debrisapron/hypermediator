@@ -1,6 +1,6 @@
-import * as actions from '../store/actions'
-import Container from './Container'
-import Dialogue from '../components/Dialogue'
+import * as actions from '../../../store/actions'
+import Container from '../../Container'
+import Dialogue from './Dialogue'
 
 let DialogueContainer = Container(Dialogue, {
   mapDispatch: {

@@ -1,6 +1,6 @@
-import * as actions from '../store/actions'
-import Container from './Container'
-import Home from '../components/Home'
+import * as actions from '../../../store/actions'
+import Container from '../../Container'
+import Home from './Home'
 
 let HomeContainer = Container(Home, {
   mapDispatch: {

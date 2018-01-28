@@ -1,8 +1,8 @@
 - Create dialogue
 - Invitation
-- Turns
+- Rules
 - Permissions
 - Tests
-- Server rendering
-- Confirmation
+- Confirmations
 - Names
+- Dialogue for more than two

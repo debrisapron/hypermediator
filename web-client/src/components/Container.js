@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as reactRedux from 'react-redux'
 import h from 'react-hyperscript'
 
 // This function wraps a stateless component to produce a new component which calls a provided
@@ -17,4 +18,11 @@ function Reactive(component, onNewProps) {
   }
 }
 
-export default Reactive
+function Container(component, { mapDispatch, mapState, onNewProps }) {
+  if (onNewProps) {
+    component = Reactive(component, onNewProps)
+  }
+  return reactRedux.connect(mapState, mapDispatch)(component)
+}
+
+export default Container
