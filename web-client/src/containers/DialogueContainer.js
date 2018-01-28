@@ -11,14 +11,12 @@ let DialogueContainer = Container(Dialogue, {
   mapState(state, ownProps) {
     return {
       dialogue: state.dialogue,
-      dialogueLoading: state.dialogueLoading,
-      draftStatement: state.draftStatement,
       requestedDialogueId: ownProps.match.params.dialogueId
     }
   },
-  onNewProps({ dialogue, dialogueLoading, onRenderDialogue, requestedDialogueId }) {
-    if (dialogueLoading) { return }
-    if (!dialogue || dialogue.id !== requestedDialogueId) {
+  onNewProps({ dialogue, onRenderDialogue, requestedDialogueId }) {
+    if (dialogue.isLoading) { return }
+    if (!dialogue.data || dialogue.data.id !== requestedDialogueId) {
       onRenderDialogue({ id: requestedDialogueId })
     }
   }

@@ -16,7 +16,7 @@ async function getUserFromCredentials(dispatch, token, id) {
     return
   }
   loggedInUser.token = token
-  dispatch(actions.auth.loginSuccess({ loggedInUser }))
+  dispatch(actions.auth.loginSuccess({ data: loggedInUser }))
 }
 
 function clearStoredCredentials() {

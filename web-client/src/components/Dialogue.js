@@ -3,11 +3,11 @@ import PageContainer from '../containers/PageContainer'
 import StatementList from './StatementList'
 import StatementCreator from './StatementCreator'
 
-function Dialogue({ dialogue, draftStatement, onChangeDraftStatement, onSubmitStatement }) {
-  if (!dialogue) {
+function Dialogue({ dialogue, onChangeDraftStatement, onSubmitStatement }) {
+  if (!dialogue.data) {
     return h('p', 'Loading dialogue...')
   }
-  let { title, statements } = dialogue
+  let { draftStatement, data: { title, statements } } = dialogue
   return (
     h(PageContainer, { title }, [
       h(StatementList, { statements }),

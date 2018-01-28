@@ -1,4 +1,3 @@
-- Names
 - Create dialogue
 - Invitation
 - Turns
@@ -6,3 +5,4 @@
 - Tests
 - Server rendering
 - Confirmation
+- Names

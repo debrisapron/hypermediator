@@ -3,13 +3,20 @@ import SideEffectsMiddleware from '../side-effects'
 import rootReducer from './reducers'
 
 let preloadedState = {
-  activeModal: null,
-  dialogue: null,
-  dialogueLoading: false,
-  dialogueSummaries: null,
-  draftStatement: '',
-  loggedInUser: null,
-  userToken: null
+  app: {
+    activeModal: null
+  },
+  dialogue: {
+    isLoading: false,
+    draftStatement: '',
+    data: null
+  },
+  dialogueSummaries: {
+    data: null,
+  },
+  loggedInUser: {
+    data: null
+  }
 }
 
 let store = redux.createStore(

@@ -11,8 +11,8 @@ function PageContent(title, children) {
 }
 
 function UserDropdown(loggedInUser, onClickLogin, onClickLogout) {
-  return loggedInUser
-    ? h(b.NavDropdown, { title: loggedInUser.name, id: 'hm-user-dropdown' },
+  return loggedInUser.data
+    ? h(b.NavDropdown, { title: loggedInUser.data.name, id: 'hm-user-dropdown' },
         h(b.NavItem, { onClick: onClickLogout }, 'Logout')
       )
     : h(b.NavDropdown, { title: 'Not logged in', id: 'hm-user-dropdown' },
