@@ -1,4 +1,4 @@
-import * as actions from '../../../store/actions'
+import * as actions from '../../../actions'
 import Container from '../../Container'
 import Home from './Home'
 

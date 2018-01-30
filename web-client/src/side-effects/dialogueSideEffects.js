@@ -1,5 +1,15 @@
-import * as actions from '../store/actions'
+import * as reactRouterRedux from 'react-router-redux'
+import * as actions from '../actions'
 import * as api from '../services/api'
+
+export async function onAdd({ dispatch, getState }) {
+  let {
+    dialogue: { newDialogueTitle },
+    loggedInUser: { data: { id: creatorId } }
+  } = getState()
+  let id = await api.addDialogue(newDialogueTitle, creatorId)
+  dispatch(reactRouterRedux.push(`/d/${id}`))
+}
 
 export async function onAddStatement({ dispatch, getState }) {
   let { dialogue, draftStatement } = getState()

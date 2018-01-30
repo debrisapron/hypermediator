@@ -6,6 +6,21 @@ let gql = new GraphQLClient(
   { headers: {} }
 )
 
+export async function addDialogue(title, creatorId) {
+  let mutation = `mutation {
+    createDialogue(
+      title: "${title}"
+      participants: [{
+        userId: "${creatorId}"
+      }]
+    ) {
+      id
+    }
+  }`
+  let data = await gql.request(mutation)
+  return data.createDialogue.id
+}
+
 export async function addStatement(dialogueId, text) {
   let mutation = `mutation {
     createStatement(
@@ -16,7 +31,7 @@ export async function addStatement(dialogueId, text) {
     }
   }`
   let data = await gql.request(mutation)
-  return data.id
+  return data.createStatement.id
 }
 
 export async function authenticateUser(accessToken) {

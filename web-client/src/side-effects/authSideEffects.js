@@ -1,4 +1,4 @@
-import * as actions from '../store/actions'
+import * as actions from '../actions'
 import * as auth from '../services/auth'
 import * as api from '../services/api'
 

@@ -1,12 +1,15 @@
-// import * as actions from '../store/actions'
+import * as actions from '../../../../actions'
 import Container from '../../../Container'
 import DialogueCreator from './DialogueCreator'
 
 let DialogueCreatorContainer = Container(DialogueCreator, {
-  mapDispatch: {},
+  mapDispatch: {
+    onChangeNewDialogueTitle: actions.dialogue.updateNewDialogueTitle,
+    onSubmitDialogue: actions.dialogue.add
+  },
   mapState(state) {
     return {
-      // dialogueSummaries: state.dialogueSummaries
+      newDialogueTitle: state.dialogue.newDialogueTitle
     }
   }
 })

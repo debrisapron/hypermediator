@@ -1,6 +1,8 @@
 import * as b from 'react-bootstrap'
 import * as rr from 'react-router-dom'
+import * as rrr from 'react-router-redux'
 import h from 'react-hyperscript'
+import history from '../../history'
 import HomeContainer from './home'
 import DialogueContainer from './dialogue'
 import DialogueCreatorContainer from './dialogue/creator'
@@ -42,7 +44,11 @@ function PageNav(loggedInUser, onClickLogin, onClickLogout) {
                 h('span', { style: { marginLeft: '10px' } }, 'HYPERMEDIATOR')])])])]),
         h(b.Nav, { pullRight: true }, [
           UserDropdown(loggedInUser, onClickLogin, onClickLogout),
-          h('li', [h(rr.Link, { to: '/create-dialogue' }, 'Start a Dialogue')])
+          h(b.NavItem, {
+            componentClass: rr.Link,
+            href: '/create-dialogue',
+            to: '/create-dialogue'
+          }, 'Start a Dialogue')
         ])
       ])
     ])
@@ -51,7 +57,7 @@ function PageNav(loggedInUser, onClickLogin, onClickLogout) {
 
 function Page({ loggedInUser, onClickLogin, onClickLogout }) {
   return (
-    h(rr.BrowserRouter, [
+    h(rrr.ConnectedRouter, { history }, [
       h('span.page', [
         PageNav(loggedInUser, onClickLogin, onClickLogout),
         PageContent()

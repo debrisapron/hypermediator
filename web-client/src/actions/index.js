@@ -15,6 +15,8 @@ export let auth = {
 }
 
 export let dialogue = {
+  add: ActionCreator(actionTypes.DIALOGUE.ADD),
+  updateNewDialogueTitle: ActionCreator(actionTypes.DIALOGUE.UPDATE_NEW_DIALOGUE_TITLE),
   fetch: ActionCreator(actionTypes.DIALOGUE.FETCH),
   fetchSuccess: ActionCreator(actionTypes.DIALOGUE.FETCH_SUCCESS),
   statementAdd: ActionCreator(actionTypes.DIALOGUE.STATEMENT_ADD),

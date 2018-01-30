@@ -1,4 +1,4 @@
-import * as actions from '../store/actions'
+import * as actions from '../actions'
 import * as api from '../services/api'
 
 export async function onFetchAll({ dispatch }) {
