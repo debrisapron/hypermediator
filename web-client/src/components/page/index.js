@@ -9,7 +9,8 @@ let PageContainer = Container(Page, {
   },
   mapState(state, ownProps) {
     return {
-      loggedInUser: state.loggedInUser
+      loggedInUser: state.loggedInUser,
+      history: ownProps.history
     }
   }
 })

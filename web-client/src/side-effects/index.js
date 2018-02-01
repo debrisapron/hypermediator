@@ -12,6 +12,7 @@ let DESTINATIONS = {
 function SideEffectsMiddleware(store) {
   Object.values(DESTINATIONS).forEach((dest) => dest.init && dest.init(store))
   return (next) => (action) => {
+    console.log(action)
     Object.keys(DESTINATIONS).forEach((destKey) => {
       let [namespace, detail] = action.type.split('/')
       if (destKey !== namespace) { return }

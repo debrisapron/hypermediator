@@ -2,7 +2,6 @@ import * as b from 'react-bootstrap'
 import * as rr from 'react-router-dom'
 import * as rrr from 'react-router-redux'
 import h from 'react-hyperscript'
-import history from '../../history'
 import HomeContainer from './home'
 import DialogueContainer from './dialogue'
 import DialogueCreatorContainer from './dialogue/creator'
@@ -55,7 +54,7 @@ function PageNav(loggedInUser, onClickLogin, onClickLogout) {
   )
 }
 
-function Page({ loggedInUser, onClickLogin, onClickLogout }) {
+function Page({ history, loggedInUser, onClickLogin, onClickLogout }) {
   return (
     h(rrr.ConnectedRouter, { history }, [
       h('span.page', [
