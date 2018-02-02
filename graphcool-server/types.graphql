@@ -9,7 +9,13 @@ type User @model {
 type Dialogue @model {
   id: ID! @isUnique
   title: String!
+  invitations: [Invitation!]! @relation(name: "DialogueInvitations")
   participants: [Participant!]! @relation(name: "DialogueParticipants")
+}
+
+type Invitation @model {
+  id: ID! @isUnique
+  dialogue: Dialogue! @relation(name: "DialogueInvitations")
 }
 
 type Participant @model {

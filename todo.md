@@ -1,4 +1,3 @@
-- Create dialogue
 - Invitation
 - Rules
 - Permissions
