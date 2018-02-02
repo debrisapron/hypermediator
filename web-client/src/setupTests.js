@@ -25,15 +25,34 @@ let INITIAL_STATE = {
   }
 }
 
+let ALICE_INITIAL_STATE = {
+  loggedInUser: {
+    data: {
+      id: 'alice',
+      name: 'Alice'
+    }
+  }
+}
+
 function render(initialState) {
   let history = createHistory()
   let store = redux.createStore(
     (state, action) => state,
-    _.merge({}, INITIAL_STATE, initialState)
+    _.merge(INITIAL_STATE, initialState)
   )
   let root = react.createElement(Root, { store, history })
-  let $ = enzyme.mount(root)
-  return { $, store, history }
+  let wrapper = enzyme.mount(root)
+  let $ = (selector) => {
+    return wrapper
+      .find(selector)
+      .filterWhere((n) => typeof n.type() === 'string')
+  }
+  return { $, wrapper, store, history }
 }
 
+function renderAlice(initialState) {
+  return render(_.merge(ALICE_INITIAL_STATE, initialState))
+}
+
+render.alice = renderAlice
 global.render = render
