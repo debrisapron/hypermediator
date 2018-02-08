@@ -1,7 +1,19 @@
-- Invitation
+Next:
+
+- Avatars
+- Invitations
 - Rules
 - Permissions
-- Tests
 - Confirmations
 - Names
-- Dialogue for more than two
+- Throbbers
+- More than two in a dialogue
+
+Then:
+
+- Comments
+
+Lastly:
+
+- Small custom CSS
+- Operation without JS

@@ -1,10 +1,7 @@
 import * as actionTypes from '../actions/actionTypes'
+import INITIAL_STATE from './initialState'
 
-let INITIAL_STATE = {
-  activeModal: null
-}
-
-function reducer(state = INITIAL_STATE, action) {
+function appReducer(state = INITIAL_STATE.app, action) {
   switch (action.type) {
     case actionTypes.APP.HIDE_MODAL:
       return { ...state, activeModal: null }
@@ -13,4 +10,4 @@ function reducer(state = INITIAL_STATE, action) {
   }
 }
 
-export default reducer
+export default appReducer

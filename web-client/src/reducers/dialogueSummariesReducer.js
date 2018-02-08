@@ -1,10 +1,7 @@
 import * as actionTypes from '../actions/actionTypes'
+import INITIAL_STATE from './initialState'
 
-let INITIAL_STATE = {
-  data: null
-}
-
-function reducer(state = INITIAL_STATE, action) {
+function dialogueSummariesReducer(state = INITIAL_STATE.dialogueSummaries, action) {
   switch (action.type) {
     case actionTypes.DIALOGUE_SUMMARY.FETCH_ALL_SUCCESS:
       return { data: action.payload.data }
@@ -13,4 +10,4 @@ function reducer(state = INITIAL_STATE, action) {
   }
 }
 
-export default reducer
+export default dialogueSummariesReducer

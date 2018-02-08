@@ -1,0 +1,68 @@
+/* Links */
+a {
+  color: #111;
+  text-decoration: none;
+}
+a:hover {
+  color: #2a7ae2;
+}
+p a, h6 a {
+  color: #2a7ae2;
+}
+p a, h6 a:visited {
+  color: #1756a9;
+}
+
+/* Header */
+header {
+  margin-top: 10px;
+}
+header .hm-site-name {
+  margin-left: 10px;
+  vertical-align: top;
+  font-size: 1.2em;
+}
+
+/* Main */
+main {
+  margin-top: 40px;
+}
+
+/* Dialogues */
+.hm-dialogue .container {
+  width: 100%;
+}
+
+/* Statements */
+.hm-statement img.hm-avatar {
+  width: 75%;
+  margin-top: 27px; /* TODO Position using a grid instead */
+}
+.hm-statement h6 {
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+/* Bubbles */
+.hm-speech-bubble {
+	position: relative;
+	background: #edefef;
+	border-radius: .4em;
+}
+.hm-speech-bubble p {
+  padding: 0 5px 0 5px;
+}
+.hm-speech-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 33%;
+	width: 0;
+	height: 0;
+	border: 28px solid transparent;
+	border-right-color: #edefef;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -14px;
+	margin-left: -28px;
+}

@@ -1,0 +1,28 @@
+{
+  "engines": {
+    "node": "9.x.x"
+  },
+  "watch": {
+    "serve": "*.js"
+  },
+  "scripts": {
+    "deploy": "now rm web-server && now --public",
+    "now-start": "yarn serve",
+    "serve": "node -r @std/esm .",
+    "start": "npm-watch"
+  },
+  "dependencies": {
+    "@std/esm": "^0.20.0",
+    "express": "^4.16.2",
+    "history": "^4.7.2",
+    "lodash": "^4.17.5",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2"
+  },
+  "@std/esm": "cjs",
+  "devDependencies": {
+    "npm-watch": "^0.3.0"
+  }
+}
