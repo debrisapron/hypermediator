@@ -1,26 +1,50 @@
 import _ from 'lodash/fp'
-import * as react from 'react'
 import * as redux from 'redux'
-import DEFAULT_INITIAL_STATE from './reducers/initialState'
 
-let DEFAULT_REDUCERS = {}
-Object.keys(DEFAULT_INITIAL_STATE).forEach((key) => {
-  DEFAULT_REDUCERS[key] = (state = DEFAULT_INITIAL_STATE[key]) => state
-})
+import * as authSideEffects from './side-effects/authSideEffects'
+import * as dialogueSideEffects from './side-effects/dialogueSideEffects'
+import * as dialogueSummarySideEffects from './side-effects/dialogueSummarySideEffects'
+import SideEffectsMiddleware from './side-effects/SideEffectsMiddleware'
 
-let composeEnhancers = (
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-) || _.compose
+import appReducer from './reducers/appReducer'
+import dialogueReducer from './reducers/dialogueReducer'
+import dialogueSummariesReducer from './reducers/dialogueSummariesReducer'
+import loggedInUserReducer from './reducers/loggedInUserReducer'
 
-function Store({ reducers, initialState, enhancers, middlewares }) {
-  initialState = _.merge(DEFAULT_INITIAL_STATE, initialState)
-  let reducer = redux.combineReducers(_.merge(DEFAULT_REDUCERS, reducers))
-  enhancers = enhancers || []
-  if (middlewares) {
-    enhancers = enhancers.concat(redux.applyMiddleware(...(middlewares)))
+import Router from './Router'
+
+function Store({ isDom, initialState, routerConfig, awaitReady = false }) {
+  let composeEnhancers =
+    (isDom && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || _.compose
+  let {
+    thunk,
+    reducer: routerReducer,
+    middleware: routerMiddleware,
+    enhancer: routerEnhancer
+  } = Router(isDom, routerConfig)
+  let sideEffectsHandlers = {
+    DIALOGUE: dialogueSideEffects,
+    DIALOGUE_SUMMARY: dialogueSummarySideEffects
   }
-  let enhancer = enhancers.length ? composeEnhancers(...enhancers) : undefined
-  return redux.createStore(reducer, initialState, enhancer)
+  // Auth is client-side only
+  if (isDom) {
+    sideEffectsHandlers.AUTH = authSideEffects
+  }
+  let sideEffectsMiddleware = SideEffectsMiddleware(sideEffectsHandlers)
+  let reducer = redux.combineReducers({
+    app: appReducer,
+    dialogue: dialogueReducer,
+    dialogueSummaries: dialogueSummariesReducer,
+    location: routerReducer,
+    loggedInUser: loggedInUserReducer
+  })
+  let enhancer = composeEnhancers(
+    routerEnhancer,
+    redux.applyMiddleware(routerMiddleware, sideEffectsMiddleware)
+  )
+  let store = redux.createStore(reducer, initialState, enhancer)
+  if (awaitReady) { return thunk(store).then(() => store) }
+  return store
 }
 
 export default Store

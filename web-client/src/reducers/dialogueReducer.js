@@ -1,7 +1,13 @@
 import * as actionTypes from '../actions/actionTypes'
-import INITIAL_STATE from './initialState'
 
-function dialogueReducer(state = INITIAL_STATE.dialogue, action) {
+let INITIAL_STATE = {
+  newDialogueTitle: '',
+  isLoading: false,
+  draftStatement: '',
+  data: null
+}
+
+function dialogueReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case actionTypes.DIALOGUE.FETCH:
       return { ...state, data: null, isLoading: true }

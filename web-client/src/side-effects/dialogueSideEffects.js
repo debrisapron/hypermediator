@@ -1,13 +1,15 @@
 import * as actions from '../actions'
 import * as api from '../services/api'
+import * as reduxFirstRouter from 'redux-first-router'
 
 export async function onAdd({ dispatch, getState }) {
+  dispatch(actions.app.setIsBusy({ isBusy: true }))
   let {
     dialogue: { newDialogueTitle },
     loggedInUser: { data: { id: creatorId } }
   } = getState()
   let id = await api.addDialogue(newDialogueTitle, creatorId)
-  // dispatch(reactRouterRedux.push(`/d/${id}`))
+  reduxFirstRouter.push(`/d/${id}`)
 }
 
 export async function onAddStatement({ dispatch, getState }) {

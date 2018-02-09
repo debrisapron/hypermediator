@@ -3,16 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import * as react from 'react'
 import * as reactDomServer from 'react-dom/server'
-import createHistory from 'history/createMemoryHistory'
 
-import * as dialogueSideEffects from '../web-client/src/side-effects/dialogueSideEffects'
-import * as dialogueSummarySideEffects from '../web-client/src/side-effects/dialogueSummarySideEffects'
-import SideEffectsMiddleware from '../web-client/src/side-effects/SideEffectsMiddleware'
-
-import dialogueReducer from '../web-client/src/reducers/dialogueReducer'
-import dialogueSummariesReducer from '../web-client/src/reducers/dialogueSummariesReducer'
-
-import Router from '../web-client/src/Router'
 import Store from '../web-client/src/Store'
 import Root from '../web-client/src/components'
 
@@ -28,27 +19,11 @@ let htmlTemplate = fs.readFileSync(
 // for more info
 
 async function createStore(url) {
-  let history = createHistory({ initialEntries: [url] })
-  let {
-    thunk,
-    reducer: routerReducer,
-    middleware: routerMiddleware,
-    enhancer: routerEnhancer
-  } = Router(history)
-  let sideEffectsMiddleware = SideEffectsMiddleware({
-    DIALOGUE: dialogueSideEffects,
-    DIALOGUE_SUMMARY: dialogueSummarySideEffects
+  let store = await Store({
+    awaitReady: true,
+    isDom: false,
+    routerConfig: { initialEntries: [url] }
   })
-  let store = Store({
-    reducers: {
-      dialogue: dialogueReducer,
-      dialogueSummaries: dialogueSummariesReducer,
-      location: routerReducer
-    },
-    enhancers: [routerEnhancer],
-    middlewares: [routerMiddleware, sideEffectsMiddleware]
-  })
-  await thunk(store)
   return store
 }
 

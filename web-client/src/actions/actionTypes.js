@@ -1,5 +1,5 @@
 export let APP = {
-  HIDE_MODAL: 'APP/HIDE_MODAL'
+  SET_IS_BUSY: 'APP/SET_IS_BUSY'
 }
 
 export let AUTH = {

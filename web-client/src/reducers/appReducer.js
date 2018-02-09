@@ -1,10 +1,13 @@
 import * as actionTypes from '../actions/actionTypes'
-import INITIAL_STATE from './initialState'
 
-function appReducer(state = INITIAL_STATE.app, action) {
+let INITIAL_STATE = {
+  isBusy: false
+}
+
+function appReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case actionTypes.APP.HIDE_MODAL:
-      return { ...state, activeModal: null }
+    case actionTypes.APP.SET_IS_BUSY:
+      return { ...state, isBusy: action.payload.isBusy }
     default:
       return state
   }

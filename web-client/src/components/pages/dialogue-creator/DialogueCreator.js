@@ -5,7 +5,7 @@ function DialogueCreator({ newDialogueTitle, onChangeNewDialogueTitle, onSubmitD
     h('div', [
       h('h1', 'Start a Dialogue'),
       h('form', [
-        h('label', { for: 'hm-dialogue-title-input' }, 'Title'),
+        h('label', { htmlFor: 'hm-dialogue-title-input' }, 'Title'),
         h('input.u-full-width', {
             id: 'hm-dialogue-title-input',
             type: 'text',

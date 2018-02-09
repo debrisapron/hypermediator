@@ -16,8 +16,6 @@ function SideEffectsMiddleware(handlers) {
     return (next) => (action) => {
       let thisRetVal = handle(handlers, store, action)
       let nextRetVal = next(action)
-      console.log('thisRetVal')
-      console.log(thisRetVal)
       return thisRetVal || nextRetVal
     }
   }

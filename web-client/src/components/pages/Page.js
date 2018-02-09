@@ -35,7 +35,7 @@ function PageNav(loggedInUser, onClickLogin, onClickLogout) {
       h(Link, { to: '/create-dialogue' }, 'Start a Dialogue'),
       ' | ',
       h('a', { onClick: user ? onClickLogout : onClickLogin }, [
-        user ? user.name : 'Not logged in'
+        user || 'Not logged in'
       ])
     ])
   )
@@ -50,7 +50,10 @@ function PageHeader(loggedInUser, onClickLogin, onClickLogout) {
   )
 }
 
-function Page({ location, loggedInUser, onClickLogin, onClickLogout }) {
+function Page({ isBusy, location, loggedInUser, onClickLogin, onClickLogout }) {
+  if (isBusy) {
+    return h('div.loading', 'Loading…')
+  }
   return (
     h('div.container', [
       PageHeader(loggedInUser, onClickLogin, onClickLogout),

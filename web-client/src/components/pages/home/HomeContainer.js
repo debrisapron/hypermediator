@@ -1,5 +1,4 @@
 import * as reactRedux from 'react-redux'
-import * as actions from '../../../actions'
 import Home from './Home'
 
 let HomeContainer = reactRedux.connect(

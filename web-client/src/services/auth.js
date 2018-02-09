@@ -7,7 +7,7 @@ let AUTH0_API_IDENTIFIER = 'http://localhost:8080'
 let _lock
 
 function lock() {
-  if (!_lock) {
+  return _lock || (
     _lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
       allowedConnections: ['Username-Password-Authentication'],
       auth: {
@@ -16,8 +16,7 @@ function lock() {
         redirectUrl: 'http://localhost:3000'
       }
     })
-  }
-  return _lock
+  )
 }
 
 export function show() {

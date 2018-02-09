@@ -5,7 +5,8 @@ import Page from './Page'
 let PageContainer = reactRedux.connect(
   (state) => ({
     loggedInUser: state.loggedInUser,
-    location: state.location.type
+    location: state.location.type,
+    isBusy: state.app.isBusy
   }),
   {
     onClickLogin: actions.auth.showLoginModal,

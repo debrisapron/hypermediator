@@ -5,7 +5,7 @@ function ActionCreator(type) {
 }
 
 export let app = {
-  hideModal: ActionCreator(actionTypes.APP.HIDE_MODAL)
+  setIsBusy: ActionCreator(actionTypes.APP.SET_IS_BUSY)
 }
 
 export let auth = {

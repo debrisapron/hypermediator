@@ -1,10 +1,16 @@
 import _ from 'lodash/fp'
 import { GraphQLClient } from 'graphql-request'
 
-let gql = new GraphQLClient(
-  'https://api.graph.cool/simple/v1/cjc0y4mb312yk0165wher7c6w',
-  { headers: {} }
-)
+let _gql
+
+function gql() {
+  return _gql || (
+    _gql = new GraphQLClient(
+      'https://api.graph.cool/simple/v1/cjc0y4mb312yk0165wher7c6w',
+      { headers: {} }
+    )
+  )
+}
 
 export async function addDialogue(title, creatorId) {
   let mutation = `mutation {
@@ -17,7 +23,7 @@ export async function addDialogue(title, creatorId) {
       id
     }
   }`
-  let data = await gql.request(mutation)
+  let data = await gql().request(mutation)
   return data.createDialogue.id
 }
 
@@ -30,7 +36,7 @@ export async function addStatement(dialogueId, text) {
       id
     }
   }`
-  let data = await gql.request(mutation)
+  let data = await gql().request(mutation)
   return data.createStatement.id
 }
 
@@ -41,7 +47,7 @@ export async function authenticateUser(accessToken) {
       token
     }
   }`
-  let data = await gql.request(mutation)
+  let data = await gql().request(mutation)
   return data.authenticateUser
 }
 
@@ -56,7 +62,7 @@ export async function fetchDialogue(id) {
       }
     }
   }`
-  let data = await gql.request(query)
+  let data = await gql().request(query)
   let dialogue = data.Dialogue
   let statements = dialogue.participants.map((p) => {
     return p.statements.map((s) => _.set('user', p.user, s))
@@ -74,7 +80,7 @@ export async function fetchDialogueSummaries() {
       title
     }
   }`
-  let data = await gql.request(query)
+  let data = await gql().request(query)
   return data.allDialogues
 }
 
@@ -85,6 +91,6 @@ export async function fetchUser(id) {
       name
     }
   }`
-  let data = await gql.request(query)
+  let data = await gql().request(query)
   return data.User
 }

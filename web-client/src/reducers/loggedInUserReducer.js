@@ -1,7 +1,10 @@
 import * as actionTypes from '../actions/actionTypes'
-import INITIAL_STATE from './initialState'
 
-function loggedInUserReducer(state = INITIAL_STATE.loggedInUser, action) {
+let INITIAL_STATE = {
+  data: null
+}
+
+function loggedInUserReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case actionTypes.AUTH.LOGIN_SUCCESS:
       return { ...state, data: action.payload.data }
