@@ -1,4 +1,3 @@
-import * as reactRouterRedux from 'react-router-redux'
 import * as actions from '../actions'
 import * as api from '../services/api'
 
@@ -8,7 +7,7 @@ export async function onAdd({ dispatch, getState }) {
     loggedInUser: { data: { id: creatorId } }
   } = getState()
   let id = await api.addDialogue(newDialogueTitle, creatorId)
-  dispatch(reactRouterRedux.push(`/d/${id}`))
+  // dispatch(reactRouterRedux.push(`/d/${id}`))
 }
 
 export async function onAddStatement({ dispatch, getState }) {
@@ -19,7 +18,8 @@ export async function onAddStatement({ dispatch, getState }) {
   dispatch(actions.dialogue.updateDraftStatement({ text: '' }))
 }
 
-export async function onFetch({ dispatch, payload: { id } }) {
-  let data = await api.fetchDialogue(id)
+export async function onFetch({ dispatch, payload: { dialogueId } }) {
+  let data = await api.fetchDialogue(dialogueId)
   dispatch(actions.dialogue.fetchSuccess({ data }))
+  return { data }
 }

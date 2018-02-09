@@ -1,9 +1,9 @@
-import * as rr from 'react-router-dom'
 import h from 'react-hyperscript'
+import Link from 'redux-first-router-link'
 
 function DialogueSummary(dialogueSummary) {
   return h('li', [
-    h(rr.Link, { to: `/d/${dialogueSummary.id}` }, dialogueSummary.title)
+    h(Link, { to: `/d/${dialogueSummary.id}` }, dialogueSummary.title)
   ])
 }
 

@@ -1,5 +1,6 @@
+import _ from 'lodash/fp'
+import * as react from 'react'
 import * as reactDom from 'react-dom'
-import * as reactRouterRedux from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 
 import * as authSideEffects from './side-effects/authSideEffects'
@@ -12,39 +13,44 @@ import dialogueReducer from './reducers/dialogueReducer'
 import dialogueSummariesReducer from './reducers/dialogueSummariesReducer'
 import loggedInUserReducer from './reducers/loggedInUserReducer'
 
-import init from './init'
+import Router from './Router'
+import Store from './Store'
+import Root from './components'
 
-function main() {
+function createStore() {
   let history = createHistory()
-  let routerMiddleware = reactRouterRedux.routerMiddleware(history)
+  let {
+    reducer: routerReducer,
+    middleware: routerMiddleware,
+    enhancer: routerEnhancer
+  } = Router(history)
   let sideEffectsMiddleware = SideEffectsMiddleware({
     AUTH: authSideEffects,
     DIALOGUE: dialogueSideEffects,
     DIALOGUE_SUMMARY: dialogueSummarySideEffects
   })
-
-  let config = {
-    store: {
-      reducers: {
-        app: appReducer,
-        dialogue: dialogueReducer,
-        dialogueSummaries: dialogueSummariesReducer,
-        loggedInUser: loggedInUserReducer,
-        router: reactRouterRedux.routerReducer
-      },
-      initialState: window.__HM_REDUX_INITIAL_STATE,
-      middlewares: [
-        routerMiddleware,
-        sideEffectsMiddleware
-      ]
+  return Store({
+    reducers: {
+      app: appReducer,
+      dialogue: dialogueReducer,
+      dialogueSummaries: dialogueSummariesReducer,
+      location: routerReducer,
+      loggedInUser: loggedInUserReducer
     },
-    router: {
-      component: reactRouterRedux.ConnectedRouter,
-      props: { history }
-    }
-  }
+    initialState: window.__HM_REDUX_INITIAL_STATE,
+    enhancers: [
+      routerEnhancer
+    ],
+    middlewares: [
+      routerMiddleware,
+      sideEffectsMiddleware
+    ]
+  })
+}
 
-  let root = init(config)
+function main() {
+  let store = createStore()
+  let root = react.createElement(Root, { store })
   let el = document.getElementById('root')
   reactDom.render(root, el)
 }

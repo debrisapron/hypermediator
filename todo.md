@@ -15,5 +15,6 @@ Then:
 
 Lastly:
 
+- Slugs
 - Small custom CSS
 - Operation without JS

@@ -1,12 +1,15 @@
 import express from 'express'
-import routes from './routes'
+import renderPage from './renderPage'
 
 function main() {
   let app = express()
   app.use(express.static('./public', { index: false }))
-  app.use(routes)
-  app.listen(1337, () => {
-    console.log('Hypermediator web server listening on port 1337')
+  app.get('*', async (req, res) => {
+    let html = await renderPage(req.url)
+    res.send(html)
+  })
+  app.listen(3001, () => {
+    console.log('Hypermediator web server listening on port 3001')
   })
 }
 

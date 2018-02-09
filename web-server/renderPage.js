@@ -1,10 +1,20 @@
 import _ from 'lodash/fp'
 import fs from 'fs'
 import path from 'path'
+import * as react from 'react'
 import * as reactDomServer from 'react-dom/server'
-import * as reactRouterDom from 'react-router-dom'
-import DEFAULT_INITIAL_STATE from '../web-client/src/reducers/initialState'
-import init from '../web-client/src/init'
+import createHistory from 'history/createMemoryHistory'
+
+import * as dialogueSideEffects from '../web-client/src/side-effects/dialogueSideEffects'
+import * as dialogueSummarySideEffects from '../web-client/src/side-effects/dialogueSummarySideEffects'
+import SideEffectsMiddleware from '../web-client/src/side-effects/SideEffectsMiddleware'
+
+import dialogueReducer from '../web-client/src/reducers/dialogueReducer'
+import dialogueSummariesReducer from '../web-client/src/reducers/dialogueSummariesReducer'
+
+import Router from '../web-client/src/Router'
+import Store from '../web-client/src/Store'
+import Root from '../web-client/src/components'
 
 let htmlTemplate = fs.readFileSync(
   path.resolve(__dirname, './public/index.html'),
@@ -13,29 +23,41 @@ let htmlTemplate = fs.readFileSync(
 
 // NOTE See
 // https://github.com/ayroblu/ssr-create-react-app-v2/blob/master/server/universal.js
-// for more detail
+// and
+// https://github.com/faceyspacey/redux-first-router/blob/master/docs/server-rendering.md
+// for more info
 
-function renderStateScript(state) {
-  return `window.__HM_REDUX_INITIAL_STATE = ${JSON.stringify(state)}`
-}
-
-function renderRootComponent(url, state) {
-  let config = {
-    store: {
-      initialState: _.merge(DEFAULT_INITIAL_STATE, state)
+async function createStore(url) {
+  let history = createHistory({ initialEntries: [url] })
+  let {
+    thunk,
+    reducer: routerReducer,
+    middleware: routerMiddleware,
+    enhancer: routerEnhancer
+  } = Router(history)
+  let sideEffectsMiddleware = SideEffectsMiddleware({
+    DIALOGUE: dialogueSideEffects,
+    DIALOGUE_SUMMARY: dialogueSummarySideEffects
+  })
+  let store = Store({
+    reducers: {
+      dialogue: dialogueReducer,
+      dialogueSummaries: dialogueSummariesReducer,
+      location: routerReducer
     },
-    router: {
-      component: reactRouterDom.StaticRouter,
-      props: { location: url, context: {} }
-    }
-  }
-  let root = init(config)
-  return reactDomServer.renderToString(root)
+    enhancers: [routerEnhancer],
+    middlewares: [routerMiddleware, sideEffectsMiddleware]
+  })
+  await thunk(store)
+  return store
 }
 
-function renderPage(url, state) {
-  let rootHtml = renderRootComponent(url, state)
-  let stateScript = renderStateScript(state)
+async function renderPage(url) {
+  let store = await createStore(url)
+  let root = react.createElement(Root, { store })
+  let rootHtml = reactDomServer.renderToString(root)
+  let state = store.getState()
+  let stateScript = `window.__HM_REDUX_INITIAL_STATE = ${JSON.stringify(state)}`
   return htmlTemplate.replace(
     '<div id="root"></div>',
     `<div id="root">${rootHtml}</div><script>${stateScript}</script>`

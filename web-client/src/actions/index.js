@@ -27,3 +27,8 @@ export let dialogueSummary = {
   fetchAll: ActionCreator(actionTypes.DIALOGUE_SUMMARY.FETCH_ALL),
   fetchAllSuccess: ActionCreator(actionTypes.DIALOGUE_SUMMARY.FETCH_ALL_SUCCESS)
 }
+
+export let location = {
+  home: ActionCreator(actionTypes.LOCATION.HOME),
+  dialogue: ActionCreator(actionTypes.LOCATION.DIALOGUE)
+}
