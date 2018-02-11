@@ -1,0 +1,8 @@
+{
+  "name": "hypermediator",
+  "version": "0.1.0",
+  "main": "web-client/src",
+  "repository": "https://github.com/debrisapron/hypermediator.git",
+  "author": "DEBRIS APRON <debrisapron@gmail.com>",
+  "license": "MIT"
+}

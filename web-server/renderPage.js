@@ -3,11 +3,13 @@ import path from 'path'
 import * as react from 'react'
 import * as reactDomServer from 'react-dom/server'
 
-import Store from './web-client/src/Store'
-import Root from './web-client/src/components'
+import Store from 'hypermediator/Store'
+import Root from 'hypermediator/components'
+
+let PUBLIC = './node_modules/hypermediator/web-client/build'
 
 let htmlTemplate = fs.readFileSync(
-  path.resolve(__dirname, './web-client/build/index.html'),
+  path.resolve(__dirname, `${PUBLIC}/index.html`),
   'utf8'
 )
 

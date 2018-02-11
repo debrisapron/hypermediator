@@ -14,21 +14,10 @@
   },
   "dependencies": {
     "@std/esm": "^0.20.0",
-    "auth0-lock": "^11.1.0",
-    "date-fns": "^1.29.0",
     "express": "^4.16.2",
-    "graphql-request": "^1.4.0",
-    "history": "^4.7.2",
-    "lodash": "^4.17.4",
+    "hypermediator": "debrisapron/hypermediator",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-hyperscript": "^3.0.0",
-    "react-redux": "^5.0.6",
-    "react-scripts": "^1.1.0",
-    "redux": "^3.7.2",
-    "redux-first-router": "^0.0.16-next",
-    "redux-first-router-link": "^1.4.2"
-
+    "react-dom": "^16.2.0"
   },
   "@std/esm": "cjs",
   "devDependencies": {
