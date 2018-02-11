@@ -1,7 +1,7 @@
 import express from 'express'
 import renderPage from './renderPage'
 
-let PUBLIC = './node_modules/hypermediator/web-client/build'
+let PUBLIC = './node_modules/hypermediator/build'
 
 function main() {
   let app = express()
