@@ -1,4 +1,3 @@
-import _ from 'lodash/fp'
 import fs from 'fs'
 import path from 'path'
 import * as react from 'react'
@@ -18,17 +17,12 @@ let htmlTemplate = fs.readFileSync(
 // https://github.com/faceyspacey/redux-first-router/blob/master/docs/server-rendering.md
 // for more info
 
-async function createStore(url) {
+async function renderPage(url) {
   let store = await Store({
     awaitReady: true,
     isDom: false,
     routerConfig: { initialEntries: [url] }
   })
-  return store
-}
-
-async function renderPage(url) {
-  let store = await createStore(url)
   let root = react.createElement(Root, { store })
   let rootHtml = reactDomServer.renderToString(root)
   let state = store.getState()

@@ -1,11 +1,11 @@
 Next:
 
+- Names
 - Avatars
 - Invitations
 - Rules
 - Permissions
 - Confirmations
-- Names
 - Throbbers
 - More than two in a dialogue
 

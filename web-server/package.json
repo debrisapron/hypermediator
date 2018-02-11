@@ -14,11 +14,8 @@
   "dependencies": {
     "@std/esm": "^0.20.0",
     "express": "^4.16.2",
-    "history": "^4.7.2",
-    "lodash": "^4.17.5",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "redux-first-router": "^0.0.16-next"
+    "react-dom": "^16.2.0"
   },
   "@std/esm": "cjs",
   "devDependencies": {
