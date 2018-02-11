@@ -6,10 +6,8 @@ import * as reactDomServer from 'react-dom/server'
 import Store from 'hypermediator/src/Store'
 import Root from 'hypermediator/src/components'
 
-let PUBLIC = './node_modules/hypermediator/build'
-
 let htmlTemplate = fs.readFileSync(
-  path.resolve(__dirname, `${PUBLIC}/index.html`),
+  path.resolve(__dirname, `./public/index.html`),
   'utf8'
 )
 

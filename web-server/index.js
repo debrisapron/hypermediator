@@ -1,11 +1,9 @@
 import express from 'express'
 import renderPage from './renderPage'
 
-let PUBLIC = './node_modules/hypermediator/build'
-
 function main() {
   let app = express()
-  app.use(express.static(PUBLIC, { index: false }))
+  app.use(express.static('./public', { index: false }))
   app.get('*', async (req, res) => {
     let html = await renderPage(req.url)
     res.send(html)

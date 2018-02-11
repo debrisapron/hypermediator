@@ -6,7 +6,8 @@
     "serve": "*.js"
   },
   "scripts": {
-    "deploy": "yarn now-purge && now --public",
+    "build-public": "(cd .. && yarn build) && rm -rf public && mv ../build public",
+    "deploy": "now --public",
     "now-purge": "now rm web-server",
     "now-start": "yarn serve",
     "serve": "node -r @std/esm .",
