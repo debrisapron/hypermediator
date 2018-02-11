@@ -3,11 +3,11 @@ import path from 'path'
 import * as react from 'react'
 import * as reactDomServer from 'react-dom/server'
 
-import Store from '../web-client/src/Store'
-import Root from '../web-client/src/components'
+import Store from './web-client/src/Store'
+import Root from './web-client/src/components'
 
 let htmlTemplate = fs.readFileSync(
-  path.resolve(__dirname, './public/index.html'),
+  path.resolve(__dirname, './web-client/build/index.html'),
   'utf8'
 )
 

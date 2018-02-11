@@ -3,7 +3,7 @@ import renderPage from './renderPage'
 
 function main() {
   let app = express()
-  app.use(express.static('./public', { index: false }))
+  app.use(express.static('./web-client/build', { index: false }))
   app.get('*', async (req, res) => {
     let html = await renderPage(req.url)
     res.send(html)
