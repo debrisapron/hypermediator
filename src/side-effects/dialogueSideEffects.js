@@ -13,10 +13,12 @@ export async function onAdd({ dispatch, getState }) {
 }
 
 export async function onAddStatement({ dispatch, getState }) {
-  let { dialogue, draftStatement } = getState()
-  if (!dialogue) { return } // TODO Error handling
-  await api.addStatement(dialogue.id, draftStatement)
-  dispatch(actions.dialogue.fetch({ id: dialogue.id }))
+  console.log('onAddStatement')
+  let { dialogue } = getState()
+  console.log(dialogue)
+  if (!dialogue.data) { return } // TODO Error handling
+  await api.addStatement(dialogue.data.id, dialogue.draftStatement)
+  dispatch(actions.dialogue.fetch({ dialogueId: dialogue.data.id }))
   dispatch(actions.dialogue.updateDraftStatement({ text: '' }))
 }
 

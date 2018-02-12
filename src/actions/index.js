@@ -19,7 +19,7 @@ export let dialogue = {
   updateNewDialogueTitle: ActionCreator(actionTypes.DIALOGUE.UPDATE_NEW_DIALOGUE_TITLE),
   fetch: ActionCreator(actionTypes.DIALOGUE.FETCH),
   fetchSuccess: ActionCreator(actionTypes.DIALOGUE.FETCH_SUCCESS),
-  statementAdd: ActionCreator(actionTypes.DIALOGUE.STATEMENT_ADD),
+  addStatement: ActionCreator(actionTypes.DIALOGUE.ADD_STATEMENT),
   updateDraftStatement: ActionCreator(actionTypes.DIALOGUE.UPDATE_DRAFT_STATEMENT)
 }
 

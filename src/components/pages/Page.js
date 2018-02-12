@@ -1,4 +1,3 @@
-import _ from 'lodash/fp'
 import h from 'react-hyperscript'
 import * as actionTypes from '../../actions/actionTypes'
 import Link from 'redux-first-router-link'
@@ -22,30 +21,37 @@ function PageContent(location) {
 function Brand() {
   return (
     h(Link, { to: '/' }, [
-      h('img', { src: '/hm_logo.svg', height: 30 }),
+      h('img', { src: '/hm_logo.svg', height: 25 }),
       h('span.hm-site-name', 'HYPERMEDIATOR')
     ])
   )
 }
 
-function PageNav(loggedInUser, onClickLogin, onClickLogout) {
-  let user = _.get('data.name', loggedInUser)
-  return (
-    h('div.u-pull-right', [
-      h(Link, { to: '/create-dialogue' }, 'Start a Dialogue'),
-      ' | ',
-      h('a', { onClick: user ? onClickLogout : onClickLogin }, [
-        user || 'Not logged in'
+function UserLink(loggedInUser, onClickLogin, onClickLogout) {
+  let user = loggedInUser && loggedInUser.data
+  if (user) {
+    return (
+      h('a.u-pull-right', { onClick: onClickLogout }, [
+        h('span.hm-user-name', user.name),
+        h('img', { src: user.avatar, height: 25 })
       ])
-    ])
-  )
+    )
+  }
+  return h('a.u-pull-right', { onClick: onClickLogin }, 'Not logged in')
+}
+
+function CreateDialogueLink() {
+  return h('div.hm-center-text', [
+    h(Link, { to: '/create-dialogue' }, 'Start a Dialogue')
+  ])
 }
 
 function PageHeader(loggedInUser, onClickLogin, onClickLogout) {
   return (
     h('header.row', [
-      h('div.six.columns', [Brand()]),
-      h('div.six.columns', [PageNav(loggedInUser, onClickLogin, onClickLogout)])
+      h('div.four.columns', [Brand()]),
+      h('div.four.columns', [CreateDialogueLink()]),
+      h('div.four.columns', [UserLink(loggedInUser, onClickLogin, onClickLogout)])
     ])
   )
 }

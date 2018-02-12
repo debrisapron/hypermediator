@@ -57,7 +57,7 @@ export async function fetchDialogue(id) {
       id
       title
   		participants {
-        user { name id }
+        user { name id avatar }
         statements { text createdAt }
       }
     }
@@ -89,6 +89,7 @@ export async function fetchUser(id) {
     User(id: "${id}") {
       id
       name
+      avatar
     }
   }`
   let data = await gql().request(query)

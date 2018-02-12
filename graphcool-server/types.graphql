@@ -3,6 +3,7 @@ type User @model {
   email: String
   auth0UserId: String @isUnique
   name: String! @isUnique
+  avatar: String
   participations: [Participant!]! @relation(name: "UserParticipations")
 }
 

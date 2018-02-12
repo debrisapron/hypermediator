@@ -6,7 +6,7 @@ function Statement(statement) {
   return (
     h('div.row.hm-statement', [
       h('div.two.columns', [
-        h('img.hm-avatar', { src: 'https://avatar.guim.co.uk/user/2492590' })
+        h('img.hm-avatar', { src: statement.user.avatar })
       ]),
       h('div.ten.columns', [
         h('h6', [

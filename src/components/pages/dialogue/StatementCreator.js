@@ -9,7 +9,7 @@ function StatementCreator({ draftStatement, onChangeDraftStatement, onSubmitStat
   )
 
   function onChangeText(e) {
-    onChangeDraftStatement(e.target.value)
+    onChangeDraftStatement({ text: e.target.value })
   }
 }
 

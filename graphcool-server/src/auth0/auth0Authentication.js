@@ -58,30 +58,39 @@ const getGraphcoolUser = (auth0UserId, api) =>
     .then(queryResult => queryResult.User)
 
 //Creates a new User record.
-const createGraphCoolUser = (auth0UserId, email, api) =>
-  api
-    .request(
-      `
-        mutation createUser($auth0UserId: String!, $email: String!) {
-          createUser(
-            auth0UserId: $auth0UserId
-            name: $email
-            email: $email
-          ){
-            id
-          }
-        }
-      `,
-      { auth0UserId, email }
-    )
-    .then(queryResult => queryResult.createUser)
+async function createGraphCoolUser(auth0UserId, email, name, avatar, api) {
+  let response = await api.request(`
+    mutation createUser(
+      $auth0UserId: String!,
+      $email: String!,
+      $name: String!,
+      $avatar: String
+    ) {
+      createUser(
+        auth0UserId: $auth0UserId
+        email: $email
+        name: $name
+        avatar: $avatar
+      ){
+        id
+      }
+    }`,
+    { auth0UserId, email, name, avatar }
+  )
+  return response.createUser
+}
 
-const fetchAuth0Email = accessToken =>
-  fetch(
+async function fetchAuth0UserInfo(accessToken) {
+  let response = await fetch(
     `https://${process.env.AUTH0_DOMAIN}/userinfo?access_token=${accessToken}`
   )
-    .then(response => response.json())
-    .then(json => json.email)
+  let json = await response.json()
+  return {
+    email: json.email,
+    name: json.nickname,
+    avatar: json.picture
+  }
+}
 
 export default async event => {
   try {
@@ -99,12 +108,14 @@ export default async event => {
     let graphCoolUser = await getGraphcoolUser(decodedToken.sub, api)
     //If the user doesn't exist, a new record is created.
     if (graphCoolUser === null) {
-      // fetch email if scope includes it
-      let email = null
-      if (decodedToken.scope.includes('email')) {
-        email = await fetchAuth0Email(accessToken)
-      }
-      graphCoolUser = await createGraphCoolUser(decodedToken.sub, email, api)
+      let { email, name, avatar } = await fetchAuth0UserInfo(accessToken)
+      graphCoolUser = await createGraphCoolUser(
+        decodedToken.sub,
+        email,
+        name,
+        avatar,
+        api
+      )
     }
 
     // custom exp does not work yet, see https://github.com/graphcool/graphcool-lib/issues/19
