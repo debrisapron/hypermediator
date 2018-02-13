@@ -5,10 +5,10 @@ function Statement(statement) {
   let whenPosted = dateFns.distanceInWords(statement.createdAt, new Date()) + ' ago'
   return (
     h('div.row.hm-statement', [
-      h('div.two.columns', [
+      h('div.one.column', [
         h('img.hm-avatar', { src: statement.user.avatar })
       ]),
-      h('div.ten.columns', [
+      h('div.eleven.columns', [
         h('h6', [
           h('a', statement.user.name), ' ', h('small', whenPosted)
         ]),
