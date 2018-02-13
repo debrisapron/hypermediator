@@ -7,7 +7,7 @@ import Store from 'hypermediator/src/Store'
 import Root from 'hypermediator/src/components'
 
 let htmlTemplate = fs.readFileSync(
-  path.resolve(__dirname, `./public/index.html`),
+  path.resolve(__dirname, process.env.HM_PUBLIC_PATH, 'index.html'),
   'utf8'
 )
 

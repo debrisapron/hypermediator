@@ -6,11 +6,11 @@
     "serve": "*.js"
   },
   "scripts": {
-    "build-public": "(cd .. && yarn build) && rm -rf public && mv ../build public",
+    "build": "yarn upgrade hypermediator && cd node_modules/hypermediator && yarn build",
     "deploy": "now --public",
     "now-purge": "now rm web-server",
     "now-start": "yarn serve",
-    "serve": "node -r @std/esm .",
+    "serve": "HM_PUBLIC_PATH=\"./node_modules/hypermediator/build\" node -r @std/esm .",
     "start": "npm-watch"
   },
   "dependencies": {
