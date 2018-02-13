@@ -1,33 +1,28 @@
 import _ from 'lodash/fp'
 import { GraphQLClient } from 'graphql-request'
 
-let _gql
-
-function gql() {
-  return _gql || (
-    _gql = new GraphQLClient(
-      'https://api.graph.cool/simple/v1/cjc0y4mb312yk0165wher7c6w',
-      { headers: {} }
-    )
-  )
-}
+let API_URL = 'https://api.graph.cool/simple/v1/cjc0y4mb312yk0165wher7c6w'
+let gql
 
 function request(...args) {
-  return gql().request(...args)
+  gql = gql || new GraphQLClient(API_URL, { headers: {} })
+  return gql.request(...args)
 }
 
-export async function addDialogue(title, creatorId) {
-  let mutation = `mutation {
+let ADD_DIALOGUE_GQL = `
+  mutation($title: String!, $creatorId: ID!) {
     createDialogue(
-      title: "${title}"
+      title: $title
       participants: [{
-        userId: "${creatorId}"
+        userId: $creatorId
       }]
     ) {
       id
     }
   }`
-  let data = await gql().request(mutation)
+
+export async function addDialogue(title, creatorId) {
+  let data = await request(ADD_DIALOGUE_GQL, { title, creatorId })
   return data.createDialogue.id
 }
 
@@ -49,29 +44,33 @@ export async function addStatement(dialogueId, userId, text) {
   return data.createStatement
 }
 
-export async function authenticateUser(accessToken) {
-  let mutation = `mutation {
-    authenticateUser(accessToken: "${accessToken}") {
+let AUTHENTICATE_USER_GQL = `
+  mutation($accessToken: String!) {
+    authenticateUser(accessToken: $accessToken) {
       id
       token
     }
   }`
-  let data = await gql().request(mutation)
+
+export async function authenticateUser(accessToken) {
+  let data = await request(AUTHENTICATE_USER_GQL, { accessToken })
   return data.authenticateUser
 }
 
-export async function fetchDialogue(id) {
-  let query = `{
-    Dialogue(id: "${id}") {
+let FETCH_DIALOGUE_GQL = `
+  query($id: ID!) {
+    Dialogue(id: $id) {
       id
       title
-  		participants {
+      participants {
         user { name id avatar }
         statements { text createdAt }
       }
     }
   }`
-  let data = await gql().request(query)
+
+export async function fetchDialogue(id) {
+  let data = await request(FETCH_DIALOGUE_GQL, { id })
   let dialogue = data.Dialogue
   let statements = dialogue.participants.map((p) => {
     return p.statements.map((s) => _.set('user', p.user, s))
@@ -82,14 +81,16 @@ export async function fetchDialogue(id) {
   return dialogue
 }
 
-export async function fetchDialogueSummaries() {
-  let query = `{
+let FETCH_DIALOGUE_SUMMARIES_GQL = `
+  query {
     allDialogues {
       id
       title
     }
   }`
-  let data = await gql().request(query)
+
+export async function fetchDialogueSummaries() {
+  let data = await request(FETCH_DIALOGUE_SUMMARIES_GQL)
   return data.allDialogues
 }
 
@@ -115,14 +116,16 @@ async function fetchParticipantId(dialogueId, userId) {
   return participants[0].id
 }
 
-export async function fetchUser(id) {
-  let query = `{
-    User(id: "${id}") {
+let FETCH_USER_GQL = `
+  query($id: ID!) {
+    User(id: $id) {
       id
       name
       avatar
     }
   }`
-  let data = await gql().request(query)
+
+export async function fetchUser(id) {
+  let data = await request(FETCH_USER_GQL, { id })
   return data.User
 }
