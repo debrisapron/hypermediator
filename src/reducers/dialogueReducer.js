@@ -9,6 +9,14 @@ let INITIAL_STATE = {
 
 function dialogueReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case actionTypes.DIALOGUE.ADD_STATEMENT_SUCCESS:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          statements: state.data.statements.concat(action.payload.statement)
+        }
+      }
     case actionTypes.DIALOGUE.FETCH:
       return { ...state, data: null, isLoading: true }
     case actionTypes.DIALOGUE.FETCH_SUCCESS:

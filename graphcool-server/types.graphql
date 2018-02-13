@@ -19,6 +19,8 @@ type Invitation @model {
   dialogue: Dialogue! @relation(name: "DialogueInvitations")
 }
 
+# Add unique index on user & dialogue when feature is ready:
+# https://github.com/graphcool/prisma/issues/1300
 type Participant @model {
   id: ID! @isUnique
   user: User! @relation(name: "UserParticipations")

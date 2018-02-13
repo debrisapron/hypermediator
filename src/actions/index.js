@@ -20,6 +20,7 @@ export let dialogue = {
   fetch: ActionCreator(actionTypes.DIALOGUE.FETCH),
   fetchSuccess: ActionCreator(actionTypes.DIALOGUE.FETCH_SUCCESS),
   addStatement: ActionCreator(actionTypes.DIALOGUE.ADD_STATEMENT),
+  addStatementSuccess: ActionCreator(actionTypes.DIALOGUE.ADD_STATEMENT_SUCCESS),
   updateDraftStatement: ActionCreator(actionTypes.DIALOGUE.UPDATE_DRAFT_STATEMENT)
 }
 
