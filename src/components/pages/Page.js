@@ -48,7 +48,7 @@ function CreateDialogueLink() {
 
 function PageHeader(loggedInUser, onClickLogin, onClickLogout) {
   return (
-    h('header.row', [
+    h('header.row.hm-page-header', [
       h('div.four.columns', [Brand()]),
       h('div.four.columns', [CreateDialogueLink()]),
       h('div.four.columns', [UserLink(loggedInUser, onClickLogin, onClickLogout)])

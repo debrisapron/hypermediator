@@ -1,7 +1,5 @@
 Next:
 
-- Names
-- Avatars
 - Invitations
 - Rules
 - Permissions

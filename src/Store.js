@@ -13,24 +13,33 @@ import loggedInUserReducer from './reducers/loggedInUserReducer'
 
 import Router from './Router'
 
-function Store({ isDom, initialState, routerConfig, awaitReady = false }) {
-  let composeEnhancers =
-    (isDom && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || _.compose
+function Store({
+  initialState,
+  routerConfig,
+  useAuth = true,
+  useReduxDevtools = true,
+  awaitReady = false
+} = {}) {
+  let composeEnhancers = useReduxDevtools
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : _.compose
+
   let {
     thunk,
     reducer: routerReducer,
     middleware: routerMiddleware,
     enhancer: routerEnhancer
-  } = Router(isDom, routerConfig)
+  } = Router(routerConfig)
+
   let sideEffectsHandlers = {
     DIALOGUE: dialogueSideEffects,
     DIALOGUE_SUMMARY: dialogueSummarySideEffects
   }
-  // Auth is client-side only
-  if (isDom) {
+  if (useAuth) {
     sideEffectsHandlers.AUTH = authSideEffects
   }
   let sideEffectsMiddleware = SideEffectsMiddleware(sideEffectsHandlers)
+
   let reducer = redux.combineReducers({
     app: appReducer,
     dialogue: dialogueReducer,
@@ -38,11 +47,14 @@ function Store({ isDom, initialState, routerConfig, awaitReady = false }) {
     location: routerReducer,
     loggedInUser: loggedInUserReducer
   })
+
   let enhancer = composeEnhancers(
     routerEnhancer,
     redux.applyMiddleware(routerMiddleware, sideEffectsMiddleware)
   )
+
   let store = redux.createStore(reducer, initialState, enhancer)
+
   if (awaitReady) { return thunk(store).then(() => store) }
   return store
 }

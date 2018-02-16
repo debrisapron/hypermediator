@@ -20,8 +20,12 @@ let htmlTemplate = fs.readFileSync(
 async function renderPage(url) {
   let store = await Store({
     awaitReady: true,
-    isDom: false,
-    routerConfig: { initialEntries: [url] }
+    useAuth: false,
+    useReduxDevtools: false,
+    routerConfig: {
+      isBrowser: false,
+      historyConfig: { initialEntries: [url] }
+    }
   })
   let root = react.createElement(Root, { store })
   let rootHtml = reactDomServer.renderToString(root)

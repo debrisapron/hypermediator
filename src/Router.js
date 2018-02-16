@@ -26,8 +26,10 @@ function Thunk(action) {
   }
 }
 
-function Router(isDom, historyConfig) {
-  let createHistory = history[isDom ? 'createBrowserHistory' : 'createMemoryHistory']
+function Router({ isBrowser = true, historyConfig } = {}) {
+  let createHistory = history[
+    isBrowser ? 'createBrowserHistory' : 'createMemoryHistory'
+  ]
   let historyInstance = createHistory(historyConfig)
   return reduxFirstRouter.connectRoutes(historyInstance, ROUTES)
 }

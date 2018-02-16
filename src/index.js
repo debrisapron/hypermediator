@@ -8,7 +8,6 @@ import Root from './components'
 
 function main() {
   let store = Store({
-    isDom: true,
     initialState: window.__HM_REDUX_INITIAL_STATE
   })
   let root = react.createElement(Root, { store })
