@@ -19,8 +19,8 @@ describe('page', () => {
     expect($('.hm-page-header .hm-user-name')).toIncludeText('Alice')
   })
 
-  // it('renders the create dialogue link', () => {
-  //   let { $ } = render()
-  //   expect($('.navbar a[href="/create-dialogue"]')).toIncludeText('Start a Dialogue')
-  // })
+  it('renders the create dialogue link', async () => {
+    let { $ } = await render()
+    expect($('.hm-page-header a[href="/create-dialogue"]')).toIncludeText('Start a Dialogue')
+  })
 })
