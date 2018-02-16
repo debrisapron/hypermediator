@@ -3411,7 +3411,7 @@ https-browserify@^1.0.0:
 
 hypermediator@debrisapron/hypermediator:
   version "0.1.0"
-  resolved "https://codeload.github.com/debrisapron/hypermediator/tar.gz/0536a1aa6951ea1a390c95c2800f6bbb8c2171fb"
+  resolved "https://codeload.github.com/debrisapron/hypermediator/tar.gz/80cd44db3cce87beee78b2ab0c03ed57faf8eae1"
   dependencies:
     auth0-lock "^11.1.0"
     date-fns "^1.29.0"
@@ -6992,8 +6992,8 @@ ua-parser-js@^0.7.9:
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
 
 uglify-js@3.3.x, uglify-js@^3.0.13:
-  version "3.3.10"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.3.10.tgz#8e47821d4cf28e14c1826a0078ba0825ed094da8"
+  version "3.3.11"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.3.11.tgz#e9d058b20715138bb4e8e5cae2ea581686bdaae3"
   dependencies:
     commander "~2.14.1"
     source-map "~0.6.1"
